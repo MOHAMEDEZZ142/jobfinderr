@@ -1,0 +1,37 @@
+import { Comment } from "../../../DB/models/comment.model.js";
+import { Post } from "../../../DB/models/post.model.js";
+import { Publishment } from "../../../DB/models/publishment.model.js";
+import { Reaction } from "../../../DB/models/reaction.model.js";
+import { superUser } from "../../../DB/models/superUser.model.js";
+
+export const reactPost= async (req, res, next)=>{
+    const post = await Post.findOne({where:{id: req.params.postId}});
+    if(!post){return next(new Error("Post not found"))};
+    const react = await Reaction.create({postId:req.params.postId, superuserId: req.user.id});
+    return res.json({success: true, react});
+};
+
+export const showAllReactOnPost = async (req, res, next)=>{
+    const post = await Post.findOne({where:{id: req.params.postId}});
+    if(!post){return next(new Error("Post not found"))};
+    const React = await Reaction.findAll(
+        {where:{postId: req.params.postId},attributes:["createdAt","superuserId"],});
+    return res.json({success: true, React});
+};
+
+export const showMyAllReactdPost = async (req, res, next)=>{
+    const ReactdPosts = await Reaction.findAll({
+        where:{superuserId: req.user.id},
+        attributes:["createdAt"],
+        include:[
+            {model:Post, attributes:["createdAt"],
+            include:[
+                {model: Publishment, attributes:["content"]},
+                {model: superUser, attributes:["userName"]},
+                {model: Comment, attributes: ["createdAt","content"], include:[{model: superUser, attributes: ["userName"]}]}
+            ]
+        },
+            ]
+    });
+    return res.json({success: true, ReactdPosts});
+};
