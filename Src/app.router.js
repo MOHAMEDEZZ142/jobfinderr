@@ -26,11 +26,11 @@ export const appRouter = (app, express)=>{
     const whitelist= ["http://127.0.0.1:5500"];
     app.use((req, res, next)=>{
         // // activate account api
-        // if(req.originlUrl.includes("/user/confirmEmail")){
-        //     res.setHeader("Access-Control-Allow-Origin","*");
-        //     res.setHeader("Access-Control-Allow-Methods","GET");
-        //     return next();
-        // };
+        if(req.originlUrl.includes("/user/confirmEmail")){
+            res.setHeader("Access-Control-Allow-Origin","*");
+            res.setHeader("Access-Control-Allow-Methods","GET");
+            return next();
+        };
         if(!whitelist.includes(req.header("origin"))){
             return next(new Error("Blocked By CROS"));
         };
