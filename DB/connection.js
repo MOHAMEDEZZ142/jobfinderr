@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
-export const sequelize= new Sequelize("jobfinder1","root","root",{ //"sql6687811","sql6687811","G8iewytUxy",  
-    host: 'localhost', // 'sql6.freesqldatabase.com', 
+export const sequelize= new Sequelize( "sql6687811","sql6687811","G8iewytUxy", {
+    host: 'sql6.freesqldatabase.com',
     dialect: 'mysql'
 });
 export const connectDB= async ()=>{
@@ -9,6 +9,7 @@ export const connectDB= async ()=>{
     .catch((err)=>{console.log("Connection field", err)})
 };
 
+//
 /*
 Host: sql6.freesqldatabase.com
 Database name: sql6687811
