@@ -24,22 +24,22 @@ export const appRouter = (app, express)=>{
     app.use("/follow",followRouter);
     //CORS
     const whitelist= ["http://127.0.0.1:5500"];
-    app.use((req, res, next)=>{
+    // app.use((req, res, next)=>{
         // // activate account api
-        if(req.originlUrl.includes("/user/confirmEmail")){
-            res.setHeader("Access-Control-Allow-Origin","*");
-            res.setHeader("Access-Control-Allow-Methods","GET");
-            return next();
-        };
-        if(!whitelist.includes(req.header("origin"))){
-            return next(new Error("Blocked By CROS"));
-        };
-        res.setHeader("Access-Control-Allow-Origin","*");
-        res.setHeader("Access-Control-Allow-Headers","*");
-        res.setHeader("Access-Control-Allow-Methods","*");
-        res.setHeader("Access-Control-Allow-Private-Network",true);
-        return next();
-    })
+        // if(req.originlUrl.includes("/user/confirmEmail")){
+        //     res.setHeader("Access-Control-Allow-Origin","*");
+        //     res.setHeader("Access-Control-Allow-Methods","GET");
+        //     return next();
+        // };
+    //     if(!whitelist.includes(req.header("origin"))){
+    //         return next(new Error("Blocked By CROS"));
+    //     };
+    //     res.setHeader("Access-Control-Allow-Origin","*");
+    //     res.setHeader("Access-Control-Allow-Headers","*");
+    //     res.setHeader("Access-Control-Allow-Methods","*");
+    //     res.setHeader("Access-Control-Allow-Private-Network",true);
+    //     return next();
+    // })
     //not found path
     app.all("*", (req, res, next)=>{
         return res.json({success: false,  message: "Page not found!"});
