@@ -7,9 +7,12 @@ import postRouter from "./modules/post/post.router.js";
 import jobRouter from "./modules/job/Job.router.js";
 import commentRouter from "./modules/comment/comment.router.js";
 import SavedPostRouter from "./modules/savedPost/savedPost.router.js";
+import SavedJobRouter from "./modules/savedJob/savedJob.router.js";
 import SharePostRouter from "./modules/share/share.router.js";
+import ShareJobRouter from "./modules/shareJob/sharedJob.router.js";
 import reactionRouter from "./modules/reaction/reaction.router.js";
 import followRouter from "./modules/following/following.router.js";
+import applyRouter from "./modules/application/application.router.js";
 export const appRouter = (app, express)=>{
     app.use(express.json());
     app.use("/user", userRouter);
@@ -18,10 +21,13 @@ export const appRouter = (app, express)=>{
     app.use("/post",postRouter);
     app.use("/job",jobRouter);
     app.use("/comment", commentRouter);
-    // app.use("/savedPost",SavedPostRouter);
-    // app.use("/sharedPost",SharePostRouter);
+    app.use("/savedPost",SavedPostRouter);
+    app.use("/savedJob",SavedJobRouter);
+    app.use("/sharedPost",SharePostRouter);
+    app.use("/sharedJob",ShareJobRouter);
     app.use("/reaction",reactionRouter);
     app.use("/follow",followRouter);
+    app.use("/application",applyRouter);
     //CORS
     const whitelist= ["http://127.0.0.1:5500"];
     app.use((req, res, next)=>{

@@ -1,4 +1,4 @@
-import { DataTypes, Model } from "sequelize";
+import { Model } from "sequelize";
 import { sequelize } from "../connection.js";
 import { superUser } from "./superUser.model.js";
 

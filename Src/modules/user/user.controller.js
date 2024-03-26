@@ -61,3 +61,13 @@ export const resetPassword= async (req, res, next)=>{
     })
     return res.json({success: true, message:"password has changed successfully"})
 };
+
+//update
+export const update= async (req, res, next)=>{
+    const { userName,phone,bio, address } = req.body;
+    const user = await superUser.findOne({where:{id: req.user.id}});
+    if(!user){next(new Error("User not found"));}
+    await user.update({userName,phone,bio, address});
+    await user.save();
+    return res.json({success:true, message: "Updated successfully", user});
+};

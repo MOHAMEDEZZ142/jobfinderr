@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addComment, deleteAllPostComments, deleteComment, deleteOthersComments, myAllComments, postAllComments,  } from "./comment.controller.js";
+import { addComment, deleteAllPostComments, deleteComment, deleteOthersComments, myAllComments, postAllComments, postCommentsCount,  } from "./comment.controller.js";
 import { isAuthenticated } from "../../middleware/isAuthenticated.js";
 import { asyncHandler } from "../../utels/asynHandler.js";
 
@@ -12,6 +12,6 @@ router.delete("/deleteOthersComments/:commentId", isAuthenticated, asyncHandler(
 router.get("/myAllComments", isAuthenticated, asyncHandler(myAllComments));
 router.get("/allComments", isAuthenticated, asyncHandler(postAllComments));
 router.delete("/deleteAllPostComments", isAuthenticated, asyncHandler(deleteAllPostComments));
-// router.get("/postCommentsCount", isAuthenticated, asyncHandler(postCommentsCount));
+router.get("/postCommentsCount", isAuthenticated, asyncHandler(postCommentsCount));
 
 export default router;

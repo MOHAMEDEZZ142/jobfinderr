@@ -1,4 +1,3 @@
-import { Op } from "sequelize";
 import { Comment } from "../../../DB/models/comment.model.js";
 import { Post } from "../../../DB/models/post.model.js";
 import { Publishment } from "../../../DB/models/publishment.model.js";
@@ -66,8 +65,8 @@ export const deleteAllPostComments= async (req, res, next)=>{
     return res.json({success:true, message:"Comments Deleted Successfully"});
 };
 
-// export const postCommentsCount =async (req, res, next)=>{
-//     const comment = await Comment.findAll({where:{postId:req.params.postId}});
-//     const commentsCount = comment.length;
-//     return res.json({success:true, commentsCount})
-// };
+export const postCommentsCount =async (req, res, next)=>{
+    const comment = await Comment.findAll({where:{postId:req.params.postId}});
+    const commentsCount = comment.length;
+    return res.json({success:true, commentsCount})
+};

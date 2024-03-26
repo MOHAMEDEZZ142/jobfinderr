@@ -7,9 +7,7 @@ export class Comment extends Model {}
 Comment.init({
     content:{type: DataTypes.STRING}
 },{sequelize, modelName:"comment", timestamps:true});
-// superUser.belongsToMany(Post,{through:Comment});
-// Post.belongsToMany(superUser,{through:Comment});
-// many-to-many relationship with additional attributes.
+
 Post.hasMany(Comment);
 Comment.belongsTo(Post);
 
