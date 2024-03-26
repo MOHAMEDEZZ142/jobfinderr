@@ -20,7 +20,7 @@ export const signUp = async(req, res, next)=>{
         superuser:{ userName:companyName, password : hashedPass, email, phone, address, activationCode}},{
             include: {model: superUser}
         });
-    const link= `http://localhost:3000/user/confirmEmail/${activationCode}`;
+    const link= `https://jobfinderr.onrender.com/user/confirmEmail/${activationCode}`;
     const isSent= await sendEmail({to:email, subject: "Activate Account", html: signUpTemp(link)});
     return isSent ? res.json({success: true, message: "Please review your email!"}): next(new Error("something went wrong"));
 };
