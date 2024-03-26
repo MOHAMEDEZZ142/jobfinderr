@@ -29,7 +29,14 @@ export const appRouter = (app, express)=>{
     app.use("/follow",followRouter);
     app.use("/application",applyRouter);
     //CORS
-    const whitelist= ["http://127.0.0.1:5500"];
+    const whitelist= ["http://127.0.0.1:5500",
+    "41.68.193.104",
+    "44.226.145.213",
+    "54.187.200.255",
+    "34.213.214.55",
+    "35.164.95.156",
+    "44.230.95.183",
+    "44.229.200.200"];
     app.use((req, res, next)=>{
         // activate account api
         if(req.originlUrl.includes("/user/confirmEmail")){
