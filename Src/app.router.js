@@ -34,7 +34,7 @@ export const appRouter = (app, express)=>{
         // activate account api
         if(req.originlUrl.includes("/user/confirmEmail")){
             res.setHeader("Access-Control-Allow-Origin","*");
-            res.setHeader("Access-Control-Allow-Methods","GET");
+            res.setHeader("Access-Control-Allow-Methods","*");
             return next();
         };
         if(!whitelist.includes(req.header("origin"))){
