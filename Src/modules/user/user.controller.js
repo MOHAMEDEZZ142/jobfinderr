@@ -80,6 +80,6 @@ export const uploadProfilePic= async (req, res, next)=>{
         req.files.path,
         {folder: `users/${id}/pp`}
         );
-    const user= await superUser.update({secure_url, public_id},{where:{id}})
+    const user= await superUser.update({profilePicture:secure_url},{where:{id}})
     return res.json({success: true, results: user});
 };
