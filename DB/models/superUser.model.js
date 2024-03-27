@@ -24,16 +24,10 @@ superUser.init({
     bio:{
         type: DataTypes.STRING
     },
-    // profilePicture:{
-    //     url: {
-    //         type: String,
-    //         // default:"https://res.cloudinary.com/dqy3hy4xj/image/upload/v1691724644/amazon/user/blank-profile-picture-973460_1280_dgbcxs.webp"
-    //     },
-    //     id: {
-    //         type: String,
-    //         // default: "amazon/user/blank-profile-picture-973460_1280_dgbcxs"
-    //     }
-    // },
+    profilePicture:{
+            type: DataTypes.STRING,
+            default:"https://res.cloudinary.com/dqy3hy4xj/image/upload/v1691724644/amazon/user/blank-profile-picture-973460_1280_dgbcxs.webp"
+        },
     address:{
         type: DataTypes.STRING
     },

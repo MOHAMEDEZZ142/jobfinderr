@@ -4,6 +4,8 @@ import bcryptjs from "bcryptjs";
 import { Token } from "../../../DB/models/token.model.js";
 import Randomstring from "randomstring";
 import { sendEmail } from "../../utels/sendMails.js";
+import cloudinary from "../../utels/cloudinary.js";
+import { where } from "sequelize";
 
 //logIn
 export const logIn= async (req, res, next)=>{
@@ -70,4 +72,14 @@ export const update= async (req, res, next)=>{
     await user.update({userName,phone,bio, address});
     await user.save();
     return res.json({success:true, message: "Updated successfully", user});
+};
+
+export const uploadProfilePic= async (req, res, next)=>{
+    const {id}= req.user;
+    const {secure_url, public_id} = await cloudinary.uploader.upload(
+        req.files.path,
+        {folder: `users/${id}/pp`}
+        );
+    const user= await superUser.update({secure_url, public_id},{where:{id}})
+    return res.json({success: true, results: user});
 };
