@@ -4,7 +4,7 @@ import nodemailer from "nodemailer";
 export const sendEmail = async ({to, subject, html, attachments})=>{
     // sender info
     const transport = nodemailer.createTransport({
-    host: "localhost",
+    host: "sql5.freesqldatabase.com",
     port: 465,
     secure: true,
     service: "gmail",
