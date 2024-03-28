@@ -10,7 +10,7 @@ export const sendForgetPassCodeSchema= joi.object({
 }).required();
 
 export const resetPasswordSchema= joi.object({
-    forgetCode: joi.number().max(5).min(4).required(),
+    forgetCode: joi.string().length(5).required(),
     password: joi.string().required(),
     confirmedPassword: joi.string().required().valid(joi.ref("password")),
 }).required();
