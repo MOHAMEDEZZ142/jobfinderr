@@ -4,12 +4,14 @@ import { acctivateAccount, logIn, resetPassword, sendForgetPassCode, update, upl
 import { asyncHandler } from "../../utels/asynHandler.js";
 import { isAuthenticated } from "../../middleware/isAuthenticated.js";
 import { uploadCloud } from "../../utels/multerCloud.js";
+import { isValid } from "../../middleware/validation.js";
+import { loginSchema, resetPasswordSchema, sendForgetPassCodeSchema, updateSchema } from "./user.validation.js";
 
-router.post("/login",asyncHandler(logIn));
+router.post("/login",isValid(loginSchema),asyncHandler(logIn));
 router.get("/confirmEmail/:activationCode", asyncHandler(acctivateAccount));
-router.patch("/sendForgetPassCode",asyncHandler(sendForgetPassCode));
-router.patch("/resetPassword",asyncHandler(resetPassword));
-router.patch("/update",isAuthenticated,asyncHandler(update));
+router.patch("/sendForgetPassCode",isValid(sendForgetPassCodeSchema),asyncHandler(sendForgetPassCode));
+router.patch("/resetPassword",isValid(resetPasswordSchema),asyncHandler(resetPassword));
+router.patch("/update",isAuthenticated,isValid(updateSchema),asyncHandler(update));
 router.post("/profilePic",isAuthenticated,uploadCloud().single("pp") ,uploadProfilePic)
 
 export default router;

@@ -8,6 +8,8 @@ import SavedJobRouter from "../savedJob/savedJob.router.js";
 import ShareJobRouter from "../shareJob/sharedJob.router.js";
 import commentRouter from "../comment/comment.router.js";
 import reactionRouter from "../reaction/reaction.router.js"
+import { isValid } from "../../middleware/validation.js";
+import { addPostSchema } from "./post.validation.js";
 
 const router = Router();
 
@@ -18,7 +20,7 @@ router.use("/:postId/sharedJob",ShareJobRouter );
 router.use("/:postId/comment", commentRouter);
 router.use("/:postId/react", reactionRouter);
 
-router.post("/add", isAuthenticated ,asyncHandler(addPost));
+router.post("/add", isAuthenticated,isValid(addPostSchema) ,asyncHandler(addPost));
 router.get("/myAllPosts",isAuthenticated,asyncHandler(myAllPosts));
 router.delete("/delete/:id",isAuthenticated, asyncHandler(deletePost));
 router.delete("/deleteMyAllPosts",isAuthenticated, asyncHandler(deleteMyAllPosts));

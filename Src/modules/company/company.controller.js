@@ -7,7 +7,7 @@ import { signUpTemp } from "../../utels/generateHTML.js";
 
 export const signUp = async(req, res, next)=>{
     //recive data
-    const {companyName, establishmentDate,description, phone, email, password,address} = req.body;
+    const {companyName, establishmentDate, phone, email, password,address} = req.body;
     //cheack if email exist
     const isUser= await superUser.findOne({ where: {email}});
     if(isUser){return next(new Error("Email is already exist"))};
@@ -16,11 +16,17 @@ export const signUp = async(req, res, next)=>{
     //create activation code
     const activationCode= crypto.randomBytes(64).toString("hex");
     //Insert data
-    const company = await Company.create({description, establishmentDate,
+    const company = await Company.create({ establishmentDate,
         superuser:{ userName:companyName, password : hashedPass, email, phone, address, activationCode}},{
             include: {model: superUser}
         });
     const link= `https://jobfinderr.onrender.com/user/confirmEmail/${activationCode}`;
     const isSent= await sendEmail({to:email, subject: "Activate Account", html: signUpTemp(link)});
     return isSent ? res.json({success: true, message: "Please review your email!"}): next(new Error("something went wrong"));
+};
+
+export const addDescription = async(req, res, next)=>{
+    const company = await Company.update({ description: req.body.description},
+        {where:{id:req.user.id}});
+    return company ? res.json({success: true, message:"Updated successfully"}): next(new Error("User not found")); 
 };
