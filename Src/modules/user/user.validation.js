@@ -16,7 +16,7 @@ export const resetPasswordSchema= joi.object({
 }).required();
 
 export const updateSchema= joi.object({
-    userName: joi.string().required().min(3).max(20),
+    userName: joi.string().min(3).max(20),
     phone: joi.string().pattern(/^01[0,1,2,5]{1}[0-9]{8}$/),
     address: joi.string(),
     bio: joi.string()
