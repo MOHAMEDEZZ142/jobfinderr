@@ -80,8 +80,22 @@ export const  uploadProfilePic= async (req, res, next)=>{
         req.file.path,
         {folder: `users/${id}/pp`}
         );
+    const updatedProfilePic = {
+        URL: secure_url,
+        Id: public_id
+    };
     const user= await superUser.findOne({where:{id}});
     if(!user){return next(new Error("user is not found"))}
-    await user.update({profilePicture:secure_url});
+    await user.update({profilePicture: JSON.stringify(updatedProfilePic)});
     return res.json({success: true, user});
 };
+
+// const updatedProfilePic = {
+//     url: 'https://example.com/new-profile.jpg',
+//     name: 'new_profile_pic'
+// };
+
+// await Model.update(
+//     { profilePic: JSON.stringify(updatedProfilePic) },
+//     { where: { id: 1 } }
+// );
