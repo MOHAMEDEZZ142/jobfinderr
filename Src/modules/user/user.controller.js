@@ -88,3 +88,17 @@ export const  uploadProfilePic= async (req, res, next)=>{
     await user.update({profilePicture: JSON.stringify(updatedProfilePic)});
     return res.json({success: true, user});
 };
+
+export const deleteProfilePic= async (req, res, next)=>{
+    const {id}= req.user;
+    const user= await superUser.findOne({where:{id}});
+    if(!user){return next(new Error("user is not found"))};
+    if (!user.profilePicture) {return next(new Error("No profile picture found"));}
+    const previousProfilePic = JSON.parse(user.profilePicture);
+    await cloudinary.uploader.destroy(previousProfilePic.Id);
+    await user.update({profilePicture: JSON.stringify({
+        URL: "https://res.cloudinary.com/dsjjrdjrd/image/upload/v1711718921/download_vfmzlr.png",
+        Id: ""
+    })});
+    return res.json({ success: true, message: "Profile picture deleted" });
+};
