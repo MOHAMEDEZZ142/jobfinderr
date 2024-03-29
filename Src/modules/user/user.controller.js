@@ -74,10 +74,10 @@ export const update= async (req, res, next)=>{
     return res.json({success:true, message: "Updated successfully", user});
 };
 
-export const uploadProfilePic= async (req, res, next)=>{
+export const  uploadProfilePic= async (req, res, next)=>{
     const {id}= req.user;
     const {secure_url, public_id} = await cloudinary.uploader.upload(
-        req.files.path,
+        req.file.path,
         {folder: `users/${id}/pp`}
         );
     const user= await superUser.update({profilePicture:secure_url},{where:{id}})
