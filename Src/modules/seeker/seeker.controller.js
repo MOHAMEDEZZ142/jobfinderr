@@ -31,7 +31,7 @@ export const  uploadCV= async (req, res, next)=>{
     const {id}= req.user;
     const {secure_url, public_id} = await cloudinary.uploader.upload(
         req.file.path,
-        {folder: `seekers/${id}/pp`}
+        {folder: `seekers/${id}/cv`}
         );
     const updatedCV = {
         URL: secure_url,
