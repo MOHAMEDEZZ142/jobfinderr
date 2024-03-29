@@ -27,14 +27,14 @@ superUser.init({
     // profilePicture:{
     //         type: DataTypes.STRING,
     //         default:"https://res.cloudinary.com/dsjjrdjrd/image/upload/v1711718921/download_vfmzlr.png"
-    //     },
+        // },
     profilePicture: {
-            type: DataTypes.JSON,
+            type: DataTypes.TEXT,
             allowNull: true,
-            defaultValue: {
+            defaultValue: JSON.stringify({
                 URL: "https://res.cloudinary.com/dsjjrdjrd/image/upload/v1711718921/download_vfmzlr.png",
                 Id: ""
-            }
+            })
         },
     // profileImage: {
     //     url: {
