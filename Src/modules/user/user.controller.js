@@ -5,7 +5,6 @@ import { Token } from "../../../DB/models/token.model.js";
 import Randomstring from "randomstring";
 import { sendEmail } from "../../utels/sendMails.js";
 import cloudinary from "../../utels/cloudinary.js";
-import { where } from "sequelize";
 
 //logIn
 export const logIn= async (req, res, next)=>{
@@ -89,13 +88,3 @@ export const  uploadProfilePic= async (req, res, next)=>{
     await user.update({profilePicture: JSON.stringify(updatedProfilePic)});
     return res.json({success: true, user});
 };
-
-// const updatedProfilePic = {
-//     url: 'https://example.com/new-profile.jpg',
-//     name: 'new_profile_pic'
-// };
-
-// await Model.update(
-//     { profilePic: JSON.stringify(updatedProfilePic) },
-//     { where: { id: 1 } }
-// );

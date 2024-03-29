@@ -13,15 +13,13 @@ birthDate:{
     type: DataTypes.DATE, 
     allowNull: false,
 },
-// CV:{
-//     url: {
-//         type: String,
-//         // default: ""
-//     },
-//     id: {
-//         type: String,
-//         // default: ""
-//     }
-// }
+CV:{
+    type: DataTypes.TEXT,
+    allowNull: true,
+    defaultValue: JSON.stringify({
+        URL: "",
+        Id: ""
+    })
+},
 },{ sequelize, modelName: 'seeker', timestamps:true });
 Seeker.belongsTo(superUser);

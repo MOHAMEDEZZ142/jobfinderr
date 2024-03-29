@@ -24,10 +24,6 @@ superUser.init({
     bio:{
         type: DataTypes.STRING
     },
-    // profilePicture:{
-    //         type: DataTypes.STRING,
-    //         default:"https://res.cloudinary.com/dsjjrdjrd/image/upload/v1711718921/download_vfmzlr.png"
-        // },
     profilePicture: {
             type: DataTypes.TEXT,
             allowNull: true,
@@ -36,16 +32,6 @@ superUser.init({
                 Id: ""
             })
         },
-    // profileImage: {
-    //     url: {
-    //         type: String,
-    //         default:"https://res.cloudinary.com/dqy3hy4xj/image/upload/v1691724644/amazon/user/blank-profile-picture-973460_1280_dgbcxs.webp"
-    //     },
-    //     id: {
-    //         type: String,
-    //         default: "amazon/user/blank-profile-picture-973460_1280_dgbcxs"
-    //     }
-    // }
     address:{
         type: DataTypes.STRING
     },
