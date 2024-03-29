@@ -81,5 +81,5 @@ export const  uploadProfilePic= async (req, res, next)=>{
         {folder: `users/${id}/pp`}
         );
     const user= await superUser.update({profilePicture:secure_url},{where:{id}})
-    return res.json({success: true, results: user});
+    return res.json({success: true, user});
 };
