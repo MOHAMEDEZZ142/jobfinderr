@@ -4,6 +4,7 @@ import bcryptjs from "bcryptjs";
 import crypto from "crypto";
 import { sendEmail } from "../../utels/sendMails.js";
 import { signUpTemp } from "../../utels/generateHTML.js";
+import cloudinary from "../../utels/cloudinary.js";
 
 export const signUp = async(req, res, next)=>{
     //recive data
