@@ -1,6 +1,6 @@
 import { Router } from "express";
 const router= Router();
-import { acctivateAccount, logIn, resetPassword, sendForgetPassCode, update, uploadProfilePic } from "./user.controller.js";
+import { acctivateAccount, deleteProfilePic, logIn, resetPassword, sendForgetPassCode, update, uploadProfilePic } from "./user.controller.js";
 import { asyncHandler } from "../../utels/asynHandler.js";
 import { isAuthenticated } from "../../middleware/isAuthenticated.js";
 import { uploadCloud } from "../../utels/multerCloud.js";
@@ -13,5 +13,6 @@ router.patch("/sendForgetPassCode",isValid(sendForgetPassCodeSchema),asyncHandle
 router.patch("/resetPassword",isValid(resetPasswordSchema),asyncHandler(resetPassword));
 router.patch("/update",isAuthenticated,isValid(updateSchema),asyncHandler(update));
 router.post("/profilePic",isAuthenticated,uploadCloud().single("pp") ,uploadProfilePic)
+router.post("/deleteProfilePic",isAuthenticated,asyncHandler(deleteProfilePic));
 
 export default router;

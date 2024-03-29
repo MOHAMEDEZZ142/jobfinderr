@@ -42,3 +42,17 @@ export const  uploadCV= async (req, res, next)=>{
     await seeker.update({CV: JSON.stringify(updatedCV)});
     return res.json({success: true, seeker});
 };
+
+export const deleteCV= async (req, res, next)=>{
+    const {id}= req.user;
+    const seeker= await Seeker.findOne({where:{id}});
+    if(!seeker){return next(new Error("user is not found"))};
+    if (!seeker.CV) {return next(new Error("No CV found"));}
+    const previousCV = JSON.parse(seeker.CV);
+    await cloudinary.uploader.destroy(previousCV.Id);
+    await seeker.update({CV: JSON.stringify({
+        URL: "",
+        Id: ""
+    })});
+    return res.json({ success: true, message: "CV deleted" });
+};
