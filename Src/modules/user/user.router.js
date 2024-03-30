@@ -7,7 +7,9 @@ import { uploadCloud } from "../../utels/multerCloud.js";
 import { isValid } from "../../middleware/validation.js";
 import { loginSchema, resetPasswordSchema, sendForgetPassCodeSchema, updateSchema } from "./user.validation.js";
 
-router.post("/login",isValid(loginSchema),asyncHandler(logIn));
+router.post("/login",
+// isValid(loginSchema),
+asyncHandler(logIn));
 router.get("/confirmEmail/:activationCode", asyncHandler(acctivateAccount));
 router.patch("/sendForgetPassCode",isValid(sendForgetPassCodeSchema),asyncHandler(sendForgetPassCode));
 router.patch("/resetPassword",isValid(resetPasswordSchema),asyncHandler(resetPassword));
