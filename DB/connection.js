@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
-export const sequelize= new Sequelize( "sql10698345","sql10698345","3NCvZL5nkD", {//"jobfinder1","root","root",
-    host:'sql10.freesqldatabase.com',//'localhost' ,//
+export const sequelize= new Sequelize("jobfinder1","root","root",{// "sql10698345","sql10698345","3NCvZL5nkD", 
+    host: 'localhost' ,//'sql10.freesqldatabase.com'
     dialect: 'mysql'
 });
 export const connectDB= async ()=>{
