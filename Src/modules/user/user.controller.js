@@ -102,3 +102,16 @@ export const deleteProfilePic= async (req, res, next)=>{
     })});
     return res.json({ success: true, message: "Profile picture deleted" });
 };
+
+//get all user data
+export const allUserData = async (req, res, next)=>{
+    const {id}= req.user;
+    const user= await superUser.findOne({
+        where:{id},
+        attributes:["gender","birthDate","CV"],
+        include: [
+            {model: superUser, attributes:["userName","email","phone","bio","profilePicture","address"]},
+        ]
+    });
+    return res.json({ success: true, user });
+};
