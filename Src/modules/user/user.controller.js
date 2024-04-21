@@ -6,6 +6,7 @@ import Randomstring from "randomstring";
 import { sendEmail } from "../../utels/sendMails.js";
 import cloudinary from "../../utels/cloudinary.js";
 import { Seeker } from "../../../DB/models/seeker.model.js";
+import { Company } from "../../../DB/models/company.model.js";
 
 //logIn
 export const logIn= async (req, res, next)=>{
@@ -105,11 +106,24 @@ export const deleteProfilePic= async (req, res, next)=>{
 };
 
 //get all user data
-export const allUserData = async (req, res, next)=>{
+export const allSeekerData = async (req, res, next)=>{
     const {id}= req.user;
     const user= await Seeker.findOne({
         where:{id},
         attributes:["gender","birthDate","CV"],
+        include: [
+            {model: superUser, attributes:["userName","email","phone","bio","profilePicture","address"]},
+        ]
+    });
+    return res.json({ success: true, user });
+};
+
+//get all company data
+export const allCompanyData = async (req, res, next)=>{
+    const {id}= req.user;
+    const user= await Company.findOne({
+        where:{id},
+        attributes:["establishmentDate","description"],
         include: [
             {model: superUser, attributes:["userName","email","phone","bio","profilePicture","address"]},
         ]
