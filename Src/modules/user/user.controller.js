@@ -5,6 +5,7 @@ import { Token } from "../../../DB/models/token.model.js";
 import Randomstring from "randomstring";
 import { sendEmail } from "../../utels/sendMails.js";
 import cloudinary from "../../utels/cloudinary.js";
+import { Seeker } from "../../../DB/models/seeker.model.js";
 
 //logIn
 export const logIn= async (req, res, next)=>{
@@ -108,9 +109,9 @@ export const allUserData = async (req, res, next)=>{
     const {id}= req.user;
     const user= await superUser.findOne({
         where:{id},
-        attributes:["gender","birthDate","CV"],
+        attributes:["userName","email","phone","bio","profilePicture","address"],
         include: [
-            {model: superUser, attributes:["userName","email","phone","bio","profilePicture","address"]},
+            {model: Seeker, attributes:["gender","birthDate","CV"]},
         ]
     });
     return res.json({ success: true, user });
