@@ -37,13 +37,12 @@ export const deleteMyAllPosts= async(req, res, next)=>{
 export const myAllPosts = async(req, res, next)=>{
     const posts= await Post.findAll({
         where:{superuserId:req.user.id},
-        attributes:["createdAt"],
+        attributes:["createdAt"], 
         include: [
             {model: superUser, attributes:["userName"]},
             {model: Publishment, attributes:["content"]},
             {model: Comment, 
-                attributes: ["createdAt","content",
-            ],
+                attributes: ["createdAt","content",],
             include:[{model: superUser, attributes: ["userName"]}],
         },
         ]
