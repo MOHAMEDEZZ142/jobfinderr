@@ -7,10 +7,6 @@ import { sendEmail } from "../../utels/sendMails.js";
 import cloudinary from "../../utels/cloudinary.js";
 import { Seeker } from "../../../DB/models/seeker.model.js";
 import { Company } from "../../../DB/models/company.model.js";
-// import { Following } from "../../../DB/models/following.model.js";
-// import { Post } from "../../../DB/models/post.model.js";
-// import { Publishment } from "../../../DB/models/publishment.model.js";
-// import { Comment } from "../../../DB/models/comment.model.js";
 
 //logIn
 export const logIn= async (req, res, next)=>{
@@ -106,8 +102,6 @@ export const deleteProfilePic= async (req, res, next)=>{
     })});
     return res.json({ success: true, message: "Profile picture deleted" });
 };
-
-// //get all user data
 
 //get all user data
 export const allSeekerData = async (req, res, next)=>{
