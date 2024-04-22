@@ -113,7 +113,7 @@ export const allSeekerData = async (req, res, next)=>{
         attributes:["gender","birthDate","CV"],
         include: [
             {model: superUser, attributes:["userName","email","phone","bio","profilePicture","address"],
-            include:{model:Token, attributes:"token"}},
+            include:[{model:Token, attributes:["token"]}]},
         ]
     });
     return res.json({ success: true, user });
