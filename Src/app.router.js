@@ -37,9 +37,9 @@ export const appRouter = (app, express)=>{
             res.setHeader("Access-Control-Allow-Methods","GET");
             return next();
         };
-        if(!whitelist.includes(req.header("origin"))){
-            return next(new Error("Blocked By CROS"));
-        };
+        // if(!whitelist.includes(req.header("origin"))){
+        //     return next(new Error("Blocked By CROS"));
+        // };
         res.setHeader("Access-Control-Allow-Origin","*");
         res.setHeader("Access-Control-Allow-Headers","*");
         res.setHeader("Access-Control-Allow-Methods","*");
