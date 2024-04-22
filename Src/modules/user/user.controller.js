@@ -19,12 +19,14 @@ export const logIn= async (req, res, next)=>{
     if(!pass){return next(new Error("Incorrect password"))};
     //cheack confirmation
     if(!user.isConfirmed){return next(new Error("you must confirm your email.. pelese check your inbox"))};
+    // Delete existing token (if any)
+    await Token.destroy({ where: { superuserId: user.id } });
     //generate token
     const token= jwt.sign({id:user.id, email: user.email},process.env.TOKEN_KEY, {expiresIn: "1d" });
-    await Token.create({token ,superuserId: user.id, expiresIn:"1"});
+    const newToken = await Token.create({token ,superuserId: user.id, expiresIn:"1"});
     user.status="online";
     await user.save();
-    return res.json({success: true, message: "logedin", token});
+    return res.json({success: true, message: "logedin", token: newToken.token});
 };
 //activate account
 export const acctivateAccount =async(req, res, next)=>{
@@ -125,7 +127,7 @@ export const allCompanyData = async (req, res, next)=>{
         attributes:["establishmentDate","description"],
         include: [
             {model: superUser, attributes:["userName","email","phone","bio","profilePicture","address"],
-            include:[{model:Token, attributes:["token","isValid","expiresIn"]}]},
+            include:[{model:Token,attributes:["token","isValid","expiresIn"]}]},
         ]
     });
     return res.json({ success: true, user });
