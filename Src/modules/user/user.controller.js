@@ -116,7 +116,8 @@ export const allSeekerData = async (req, res, next)=>{
         where:{id},
         attributes:["gender","birthDate","CV"],
         include: [
-            {model: superUser, attributes:["userName","email","phone","bio","profilePicture","address"]},
+            {model: superUser, attributes:["userName","email","phone","bio","profilePicture","address"],
+            include:[{model:Token, attributes:["token","isValid","expiresIn"]}]},
         ]
     });
     return res.json({ success: true, user });
