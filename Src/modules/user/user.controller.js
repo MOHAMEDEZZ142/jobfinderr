@@ -127,7 +127,7 @@ export const allCompanyData = async (req, res, next)=>{
         attributes:["establishmentDate","description"],
         include: [
             {model: superUser, attributes:["userName","email","phone","bio","profilePicture","address"],
-            include:[{model:Token,attributes:["token","isValid","expiresIn"]}]},
+            include:[{model:Token,attributes:["token"]}]},
         ]
     });
     return res.json({ success: true, user });
