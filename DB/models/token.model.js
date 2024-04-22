@@ -21,5 +21,5 @@ Token.init({
 },
 {sequelize, modelName:"token", timestamps:true});
 
-superUser.hasMany(Token)
+superUser.hasOne(Token)
 Token.belongsTo(superUser);
