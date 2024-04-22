@@ -46,5 +46,5 @@ export const unReactPost = async (req, res, next)=>{
 export const postReactsCount =async (req, res, next)=>{
     const react = await Reaction.findAll({where:{postId:req.params.postId}});
     const reactsCount = react.length;
-    return res.json({success:true, reactsCount})
+    return res.json({success:true, reactsCount});
 };
