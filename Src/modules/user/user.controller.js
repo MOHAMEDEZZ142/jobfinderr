@@ -118,7 +118,7 @@ export const allSeekerData = async (req, res, next)=>{
     });
     user.superuser.profilePicture = JSON.parse(user.superuser.profilePicture);
     const mergedUser = { ...user.dataValues, ...user.superuser.dataValues };
-    return res.json({ success: true, user });
+    return res.json({ success: true, mergedUser });
 };
 
 //get all company data
