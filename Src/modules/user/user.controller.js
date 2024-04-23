@@ -116,6 +116,7 @@ export const allSeekerData = async (req, res, next)=>{
             include:[{model:Token, attributes:["token"]}]},
         ]
     });
+    user.superuser.profilePicture = JSON.parse(user.superuser.profilePicture);
     return res.json({ success: true, user });
 };
 
