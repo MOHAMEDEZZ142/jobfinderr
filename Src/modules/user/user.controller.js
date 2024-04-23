@@ -112,12 +112,11 @@ export const allSeekerData = async (req, res, next)=>{
         where:{id},
         attributes:["gender","birthDate","CV"],
         include: [
-            {model: superUser, attributes:["userName","email","phone","bio","address"],
+            {model: superUser, attributes:["userName","email","phone","bio","address","profilePicture"],
             include:[{model:Token, attributes:["token"]}]},
         ]
     });
-    const profilePictureUrl = JSON.parse(user.superUser.profilePicture).URL;
-    return res.json({ success: true, user:{ ...user.toJSON(), profilePictureUrl} });
+    return res.json({ success: true, user });
 };
 
 //get all company data
@@ -127,12 +126,11 @@ export const allCompanyData = async (req, res, next)=>{
         where:{id},
         attributes:["establishmentDate","description"],
         include: [
-            {model: superUser, attributes:["userName","email","phone","bio","address"],
+            {model: superUser, attributes:["userName","email","phone","bio","address","profilePicture"],
             include:[{model:Token, attributes:["token"]}]},
         ]
     });
-    const profilePictureUrl = JSON.parse(user.superUser.profilePicture).URL;
-    return res.json({ success: true, user:{ ...user.toJSON(), profilePictureUrl} });
+    return res.json({ success: true, user});
 };
 
 //Home page
