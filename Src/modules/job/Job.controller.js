@@ -46,3 +46,32 @@ export const myAllJobs = async(req, res, next)=>{
     });
 return res.json({ success: true, jobs});
 };
+
+
+export const jobFeed =async(req, res, next)=>{
+const { id } = req.user;
+const followingList = await Following.findAll({
+    where: { followerId: id },
+    include: {
+    model: superUser,
+    attributes: ['id', 'userName'],
+    },
+});
+const followedIds = followingList.map((following) => following.superuser.id);
+const companies = await Company.findAll({
+    where: { superuserId: followedIds },
+    include: {
+        model: superUser, // Eagerly load company information
+        attributes: ['userName'], // Include only company name
+    },
+});
+const jobs = await Job.findAll({
+    where: { companyId: followedIds },
+    include: {
+        model: superUser, // Eagerly load company information
+        attributes: ['userName'], // Include only company name
+    },
+      order: [['createdAt', 'DESC']], // Order by creation date (latest first)
+});
+return res.json({ success: true, jobs });
+}

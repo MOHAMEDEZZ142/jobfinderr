@@ -20,13 +20,15 @@ export const logIn= async (req, res, next)=>{
     //cheack confirmation
     if(!user.isConfirmed){return next(new Error("you must confirm your email.. pelese check your inbox"))};
     // Delete existing token (if any)
-    await Token.destroy({ where: { superuserId: user.id } });
+    // await Token.destroy({ where: { superuserId: user.id } });
     //generate token
     const token= jwt.sign({id:user.id, email: user.email},process.env.TOKEN_KEY, {expiresIn: "1d" });
-    const newToken = await Token.create({token ,superuserId: user.id, expiresIn:"1"});
+    const newToken = await Token.update(
+        {token} ,
+        {where:{superuserId: user.id, expiresIn:"1"}});
     user.status="online";
     await user.save();
-    return res.json({success: true, message: "logedin", token: newToken.token});
+    return res.json({success: true, message: "logedin", token});
 };
 //activate account
 export const acctivateAccount =async(req, res, next)=>{
