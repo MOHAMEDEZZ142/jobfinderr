@@ -9,9 +9,7 @@ import { changePassCodeSchema, changePasswordSchema, resetPasswordSchema, sendFo
 import { isAuthenticatedSeeker } from "../../middleware/isAuthenticatedSeeker.js";
 import { isAuthenticatedCompany } from "../../middleware/isAuthenticatedCompany.js";
 
-router.post("/login",
-// isValid(loginSchema),
-asyncHandler(logIn));
+router.post("/login",asyncHandler(logIn));
 router.get("/confirmEmail/:activationCode", asyncHandler(acctivateAccount));
 router.patch("/sendForgetPassCode",isValid(sendForgetPassCodeSchema),asyncHandler(sendForgetPassCode));
 router.patch("/resetPassword",isValid(resetPasswordSchema),asyncHandler(resetPassword));
