@@ -68,14 +68,8 @@ export const resetPassword= async (req, res, next)=>{
 //update
 export const update= async (req, res, next)=>{
     const { userName,phone,bio, address } = req.body;
-    let {profilePicture} =  req.body;
     const user = await superUser.findOne({where:{id: req.user.id}});
-    if(!user){next(new Error("User not found"));}
-    profilePicture = JSON.stringify({
-        URL: profilePicture,  // Assuming the profile picture is passed as a URL string
-        Id: ""  // Assuming you have an ID for the profile picture
-    });
-    await user.update({userName,phone,bio, address, profilePicture});
+    await user.update({userName,phone,bio, address});
     await user.save();
     return res.json({success:true, message: "Updated successfully", user});
 };
