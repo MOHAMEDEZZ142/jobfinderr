@@ -80,6 +80,33 @@ export const update= async (req, res, next)=>{
     return res.json({success:true, message: "Updated successfully", user: updatedUser});
 };
 
+export const changePassCode= async(req, res, next)=>{
+    const user= await superUser.findOne({where:{id:req.user.id}});
+    if (!user){return next(new Error("User not found"))}
+    const code = Randomstring.generate({
+        length:5,
+        charset: "numeric"
+    });
+    user.forgetCode= code;
+    await user.save();
+    const isSent= await sendEmail({to:user.email, subject:"Reset password", html: `<p>${code}</p>`});
+    return isSent? res.json({success: true, message: "Please review your email!"}): next(new Error("something went wrong"));
+};
+
+export const changePassword=  async (req, res, next)=>{
+    let user= await superUser.findOne({where:{forgetCode:req.body.forgetCode}});
+    if(!user){return next(new Error("user is not found or invalid code"))};
+    user.forgetCode=null;
+    user.password= bcryptjs.hashSync(req.body.password, Number(process.env.SALT_ROUND));
+    await user.save();
+    const tokens= await Token.findAll({where:{superuserId:user.id}});
+    tokens.forEach(async(token)=>{
+        token.isValid=false;
+        await tokens.save();
+    })
+    return res.json({success: true, message:"password has changed successfully"})
+};
+
 export const  uploadProfilePic= async (req, res, next)=>{
     const {id}= req.user;
     const {secure_url, public_id} = await cloudinary.uploader.upload(
