@@ -14,7 +14,7 @@ router.get("/confirmEmail/:activationCode", asyncHandler(acctivateAccount));
 router.patch("/sendForgetPassCode",isValid(sendForgetPassCodeSchema),asyncHandler(sendForgetPassCode));
 router.patch("/resetPassword",isValid(resetPasswordSchema),asyncHandler(resetPassword));
 router.patch("/update",isAuthenticated,isValid(updateSchema),asyncHandler(update));
-router.patch("/changePassCode",isValid(changePassCodeSchema),asyncHandler(changePassCode));
+router.patch("/changePassCode",asyncHandler(changePassCode));
 router.patch("/changePassword", isAuthenticated,isValid(changePasswordSchema),asyncHandler(changePassword))
 router.post("/profilePic",isAuthenticated,uploadCloud().single("pp") ,uploadProfilePic)
 router.post("/deleteProfilePic",isAuthenticated,asyncHandler(deleteProfilePic));

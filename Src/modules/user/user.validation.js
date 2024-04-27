@@ -9,10 +9,6 @@ export const sendForgetPassCodeSchema= joi.object({
     email:joi.string().email().required()
 }).required();
 
-export const changePassCodeSchema= joi.object({
-    email:joi.string().email().required()
-}).required();
-
 export const resetPasswordSchema= joi.object({
     forgetCode: joi.string().length(5).required(),
     password: joi.string().required(),

@@ -61,8 +61,8 @@ const followedIds = followingList.map((following) => following.superuser.id);
 const companies = await Company.findAll({
     where: { superuserId: followedIds },
     include: {
-        model: superUser, // Eagerly load company information
-        attributes: ['userName'], // Include only company name
+        model: superUser,
+        attributes: ['userName'],
     },
 });
 const jobs = await Job.findAll({
