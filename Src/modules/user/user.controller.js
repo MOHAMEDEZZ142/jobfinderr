@@ -71,7 +71,13 @@ export const update= async (req, res, next)=>{
     const user = await superUser.findOne({where:{id: req.user.id}});
     await user.update({userName,phone,bio, address});
     await user.save();
-    return res.json({success:true, message: "Updated successfully", user});
+    const updatedUser = {
+    userName: user.userName,
+    phone: user.phone,
+    bio: user.bio,
+    address: user.address
+};
+    return res.json({success:true, message: "Updated successfully", user: updatedUser});
 };
 
 export const  uploadProfilePic= async (req, res, next)=>{
