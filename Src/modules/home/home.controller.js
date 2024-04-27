@@ -6,8 +6,8 @@
 //     return res.json({ success: true });
 // };
 
-import { Job } from "../../../DB/models/Job.model";
-import { Post } from "../../../DB/models/post.model";
+import { Job } from "../../../DB/models/Job.model.js";
+import { Post } from "../../../DB/models/post.model.js";
 
 // export const postsFeed = async (req, res, next) => {
 //     const { id } = req.user;
