@@ -6,3 +6,4 @@ const router= Router();
 
 router.get("/postsFeed", isAuthenticated, asyncHandler(postsFeed));
 router.get("/jobsFeed", isAuthenticated, asyncHandler(jobsFeed));
+export default router;

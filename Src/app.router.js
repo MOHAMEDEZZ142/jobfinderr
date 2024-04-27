@@ -13,6 +13,7 @@ import ShareJobRouter from "./modules/shareJob/sharedJob.router.js";
 import reactionRouter from "./modules/reaction/reaction.router.js";
 import followRouter from "./modules/following/following.router.js";
 import applyRouter from "./modules/application/application.router.js";
+import homeRouter from "./modules/home/home.router.js";
 export const appRouter = (app, express)=>{
     app.use(express.json());
     app.use("/user", userRouter);
@@ -28,6 +29,7 @@ export const appRouter = (app, express)=>{
     app.use("/reaction",reactionRouter);
     app.use("/follow",followRouter);
     app.use("/application",applyRouter);
+    app.use("/home",homeRouter);
     //CORS
     const whitelist= ["http://127.0.0.1:5500"];
     app.use((req, res, next)=>{
