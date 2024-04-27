@@ -8,6 +8,8 @@
 
 import { Job } from "../../../DB/models/Job.model.js";
 import { Post } from "../../../DB/models/post.model.js";
+import { Publishment } from "../../../DB/models/publishment.model.js";
+import { superUser } from "../../../DB/models/superUser.model.js";
 
 // export const postsFeed = async (req, res, next) => {
 //     const { id } = req.user;
@@ -43,6 +45,14 @@ import { Post } from "../../../DB/models/post.model.js";
 export const postsFeed = async (req, res, next) => {
     const {id}= req.user;
     const allPosts= await Post.findAll({
+        include: [
+            {model: superUser, attributes:["userName"]},
+            {model: Publishment, attributes:["content"]},
+            {model: Comment, 
+                attributes: ["createdAt","content",],
+            include:[{model: superUser, attributes: ["userName"]}],
+        },
+        ],
         order: [['createdAt', 'DESC']]
     })
     return res.json({ success: true, allPosts });
@@ -51,6 +61,10 @@ export const postsFeed = async (req, res, next) => {
 export const jobsFeed = async (req, res, next) => {
     const {id}= req.user;
     const allJobs= await Job.findAll({
+        include: [
+            {model: Company, attributes:["superuserId"] , include:[{model:superUser, attributes:["userName"] }]},
+            {model: Publishment, attributes:["content"]},
+        ],
         order: [['createdAt', 'DESC']]
     })
     return res.json({ success: true, allJobs });
