@@ -5,7 +5,7 @@ import { asyncHandler } from "../../utels/asynHandler.js";
 import { isAuthenticated } from "../../middleware/isAuthenticated.js";
 import { uploadCloud } from "../../utels/multerCloud.js";
 import { isValid } from "../../middleware/validation.js";
-import { changePassCodeSchema, changePasswordSchema, resetPasswordSchema, sendForgetPassCodeSchema, updateSchema } from "./user.validation.js";
+import { changePasswordSchema, resetPasswordSchema, sendForgetPassCodeSchema, updateSchema } from "./user.validation.js";
 import { isAuthenticatedSeeker } from "../../middleware/isAuthenticatedSeeker.js";
 import { isAuthenticatedCompany } from "../../middleware/isAuthenticatedCompany.js";
 
