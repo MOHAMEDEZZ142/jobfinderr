@@ -144,7 +144,7 @@ export const allSeekerData = async (req, res, next)=>{
         where:{id},
         attributes:["gender","birthDate","CV"],
         include: [
-            {model: superUser, attributes:["userName","email","phone","bio","address","profilePicture"],
+            {model: superUser, attributes:["id","userName","email","phone","bio","address","profilePicture"],
             include:[{model:Token, attributes:["token"]}]},
         ]
     });
@@ -159,7 +159,7 @@ export const allCompanyData = async (req, res, next)=>{
         where:{id},
         attributes:["establishmentDate","description"],
         include: [
-            {model: superUser, attributes:["userName","email","phone","bio","address","profilePicture"],
+            {model: superUser, attributes:["id","userName","email","phone","bio","address","profilePicture"],
             include:[{model:Token, attributes:["token"]}]},
         ]
     });
