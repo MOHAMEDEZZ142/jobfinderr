@@ -33,6 +33,7 @@ export const unSavePost = async (req, res, next)=>{
     if(!post){return next(new Error("Post not found"))}
     if(req.user.id !== post.superuserId){return res.json({success: false, message: "Not Authorized"})};
     await post.destroy();
+    return res.json({success: true, message: "deleted successfully"})
 };
 
 export const PostSavesCount =async (req, res, next)=>{
