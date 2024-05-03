@@ -3,7 +3,7 @@ import { Following } from "../../../DB/models/following.model.js"
 import { superUser } from "../../../DB/models/superUser.model.js";
 
 export const follow= async (req, res, next)=>{
-    const{followedId}= req.params;
+    const{followedId}= req.body;
     const followedUser= await superUser.findOne(
         {where:{[Op.and]: [{id:followedId}, {id:{[Op.not]:req.user.id}}]}});
     if(!followedUser){return next(new Error("user not found"))};
@@ -36,27 +36,27 @@ export const myFollowing= async(req, res, next)=>{
 };
 
 export const unFollow= async(req, res, next)=>{
-    const unFollowing= await Following.findOne({where:{followerId:req.user.id , followedId: req.params.id}});
+    const unFollowing= await Following.findOne({where:{followerId:req.user.id , followedId: req.body.followedId}});
     if(!unFollowing){return next(new Error("user not found"))};
     await unFollowing.destroy();
     return res.json({success: true, message: "Unfollowed"});
 };
 
 export const removeFollow= async(req, res, next)=>{
-    const unFollowing= await Following.findOne({where:{followedId:req.user.id , followerId: req.params.id}});
+    const unFollowing= await Following.findOne({where:{followedId:req.user.id , followerId: req.body.followerId}});
     if(!unFollowing){return next(new Error("user not found"))};
     await unFollowing.destroy();
     return res.json({success: true, message: "Follow deleted successfully"});
 };
 
 export const followerCount =async (req, res, next)=>{
-    const followers = await Following.findAll({where:{followedId:req.params.followedId}});
+    const followers = await Following.findAll({where:{followedId:req.body.followedId}});
     const followersCount = followers.length;
     return res.json({success:true, followersCount})
 };
 
 export const followingCount =async (req, res, next)=>{
-    const following = await Following.findAll({where:{followerId:req.params.followerId}});
+    const following = await Following.findAll({where:{followerId:req.body.followerId}});
     const followingCount = following.length;
     return res.json({success:true, followingCount})
 };

@@ -7,7 +7,6 @@ import { addCommentSchema, deleteAllPostCommentsSchema, deleteCommentSchema, del
 
 const router = Router({mergeParams:true});
 
-//router.use("/:postId/comment", commentRouter);
 router.post("/addComment",isAuthenticated,isValid(addCommentSchema) ,asyncHandler(addComment));
 router.delete("/deleteComment/:id",isAuthenticated,isValid(deleteCommentSchema) ,asyncHandler(deleteComment));
 router.delete("/deleteOthersComments/:commentId",isAuthenticated,isValid(deleteOthersCommentsSchema) , asyncHandler(deleteOthersComments))

@@ -5,9 +5,9 @@ import { Saved } from "../../../DB/models/savedPost.model.js";
 import { superUser } from "../../../DB/models/superUser.model.js";
 
 export const savePost= async (req, res, next)=>{
-    const post = await Post.findOne({where:{id: req.params.postId}});
+    const post = await Post.findOne({where:{id: req.body.postId}});
     if(!post){return next(new Error("Post not found"))};
-    const save = await Saved.create({postId:req.params.postId, superuserId: req.user.id});
+    const save = await Saved.create({postId:post.id, superuserId: req.user.id});
     return res.json({success: true, save});
 };
 
@@ -29,14 +29,14 @@ export const showMyAllSavedPosts = async (req, res, next)=>{
 };
 
 export const unSavePost = async (req, res, next)=>{
-    const post= await Saved.findOne({where:{postId: req.params.id, superuserId:req.user.id}});
+    const post= await Saved.findOne({where:{postId: req.body.postId, superuserId:req.user.id}});
     if(!post){return next(new Error("Post not found"))}
     if(req.user.id !== post.superuserId){return res.json({success: false, message: "Not Authorized"})};
     await post.destroy();
 };
 
 export const PostSavesCount =async (req, res, next)=>{
-    const savedPost = await Saved.findAll({where:{postId:req.params.postId}});
+    const savedPost = await Saved.findAll({where:{postId:req.body.postId}});
     const savesCount = savedPost.length;
     return res.json({success:true, savesCount})
 };

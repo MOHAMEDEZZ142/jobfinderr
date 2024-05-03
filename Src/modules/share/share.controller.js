@@ -6,7 +6,7 @@ import { Shared } from "../../../DB/models/share.model.js";
 import { superUser } from "../../../DB/models/superUser.model.js";
 
 export const SharePost= async (req, res, next)=>{
-    const share = await Shared.create({posttId:req.params.postId, superuserId: req.user.id});
+    const share = await Shared.create({postId:req.body.postId, superuserId: req.user.id});
     return res.json({success: true, share});
 };
 

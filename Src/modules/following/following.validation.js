@@ -1,6 +1,6 @@
 import joi from "joi";
 
-export const createApplicationSchema= joi.object({
+export const followSchema= joi.object({
     followedId: joi.required(),
 }).required();
 export const unFollowSchema= joi.object({

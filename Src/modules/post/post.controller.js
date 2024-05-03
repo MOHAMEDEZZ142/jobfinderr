@@ -13,10 +13,10 @@ export const addPost = async (req, res, next)=>{
 };
 
 export const deletePost= async(req, res, next)=>{
-    const post= await Post.findOne({where:{id: req.params.id}});
+    const post= await Post.findOne({where:{id: req.body.id}});
     if(!post) return res.json({success: false, message: "Post not found"});
     if(req.user.id !== post.superuserId){return res.json({success: false, message: "Not Authorized"})};
-    await post.destroy({where:{id: req.params.id}});
+    await post.destroy({where:{id:post.id}});
     await Publishment.destroy({where:{id: post.publishmentId}});
     return res.json({success: true, message:" Post Deleted successfuly"});
 };

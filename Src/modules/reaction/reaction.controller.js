@@ -5,17 +5,17 @@ import { Reaction } from "../../../DB/models/reaction.model.js";
 import { superUser } from "../../../DB/models/superUser.model.js";
 
 export const reactPost= async (req, res, next)=>{
-    const post = await Post.findOne({where:{id: req.params.postId}});
+    const post = await Post.findOne({where:{id: req.body.postId}});
     if(!post){return next(new Error("Post not found"))};
-    const react = await Reaction.create({postId:req.params.postId, superuserId: req.user.id});
+    const react = await Reaction.create({postId:post.id, superuserId: req.user.id});
     return res.json({success: true, react});
 };
 
 export const showAllReactOnPost = async (req, res, next)=>{
-    const post = await Post.findOne({where:{id: req.params.postId}});
+    const post = await Post.findOne({where:{id: req.body.postId}});
     if(!post){return next(new Error("Post not found"))};
     const React = await Reaction.findAll(
-        {where:{postId: req.params.postId},attributes:["createdAt","superuserId"],});
+        {where:{postId: post.id},attributes:["createdAt","superuserId"],});
     return res.json({success: true, React});
 };
 
@@ -37,14 +37,14 @@ export const showMyAllReactdPost = async (req, res, next)=>{
 };
 
 export const unReactPost = async (req, res, next)=>{
-    const post= await Reaction.findOne({where:{postId: req.params.id, superuserId:req.user.id}});
+    const post= await Reaction.findOne({where:{postId: req.body.id, superuserId:req.user.id}});
     if(!post){return next(new Error("Post not found"))}
     if(req.user.id !== post.superuserId){return res.json({success: false, message: "Not Authorized"})};
     await post.destroy();
 };
 
 export const postReactsCount =async (req, res, next)=>{
-    const react = await Reaction.findAll({where:{postId:req.params.postId}});
+    const react = await Reaction.findAll({where:{postId:req.body.postId}});
     const reactsCount = react.length;
     return res.json({success:true, reactsCount});
 };

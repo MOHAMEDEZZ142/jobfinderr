@@ -8,7 +8,7 @@ import { PostSavesCountSchema, savePostSchema, unSavePostSchema } from "./savedP
 const router= Router({mergeParams:true});
 
 router.post("/savePost",isAuthenticated, isValid(savePostSchema),asyncHandler(savePost));
-router.get("/showMyAllSaveddPost",isAuthenticated, asyncHandler(showMyAllSavedPosts));
-router.delete("/unSavePost/:id", isAuthenticated, isValid(unSavePostSchema),asyncHandler(unSavePost));
+router.get("/showMyAllSavedPost",isAuthenticated, asyncHandler(showMyAllSavedPosts));
+router.delete("/unSavePost", isAuthenticated, isValid(unSavePostSchema),asyncHandler(unSavePost));
 router.get("/PostSavesCount", isAuthenticated, isValid(PostSavesCountSchema),asyncHandler(PostSavesCount));
 export default router;

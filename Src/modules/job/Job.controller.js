@@ -13,11 +13,11 @@ export const addJob = async (req, res, next)=>{
 };
 
 export const deleteJob= async(req, res, next)=>{
-    const {id}= req.params;
-    const job= await Job.findOne({where:{id}});
+    const {jobId}= req.body;
+    const job= await Job.findOne({where:{id:jobId}});
     if(!job) return res.json({success: false, message: "Job not found"});
     if(req.user.id !== job.companyId){return next(new Error("Not Authorized"))};
-    await job.destroy({where:{id}});
+    await job.destroy({where:{id:jobId}});
     await Publishment.destroy({where:{id: job.publishmentId}});
     return res.json({success: true, message:" Job Deleted successfuly"});
 };
