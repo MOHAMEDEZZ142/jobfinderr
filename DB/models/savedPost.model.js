@@ -8,8 +8,8 @@ Saved.init({},{sequelize, modelName:"saved", timestamps:true});
 superUser.belongsToMany(Post,{through:Saved});
 Post.belongsToMany(superUser,{through:Saved});
 
-// superUser.hasMany(Saved);
-// Saved.belongsTo(superUser)
+superUser.hasMany(Saved);
+Saved.belongsTo(superUser)
 
-// Post.hasMany(Saved);
-// Saved.belongsTo(Post);
+Post.hasMany(Saved);
+Saved.belongsTo(Post);

@@ -7,8 +7,8 @@ SavedJob.init({},{sequelize, modelName:"savedjob", timestamps:true});
 superUser.belongsToMany(Job,{through:SavedJob});
 Job.belongsToMany(superUser,{through:SavedJob});
 
-// superUser.hasMany(SavedJob);
-// SavedJob.belongsTo(superUser)
+superUser.hasMany(SavedJob);
+SavedJob.belongsTo(superUser)
 
-// Job.hasMany(SavedJob);
-// SavedJob.belongsTo(Job);
+Job.hasMany(SavedJob);
+SavedJob.belongsTo(Job);
