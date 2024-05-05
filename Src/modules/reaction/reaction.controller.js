@@ -41,6 +41,7 @@ export const unReactPost = async (req, res, next)=>{
     if(!react){return next(new Error("Something wrong"))}
     if(req.user.id !== react.superuserId){return res.json({success: false, message: "Not Authorized"})};
     await react.destroy();
+    return res.json({success:true, message: "deleted"});
 };
 
 export const postReactsCount =async (req, res, next)=>{
