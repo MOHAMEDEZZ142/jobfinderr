@@ -4,7 +4,7 @@ import { Publishment } from "../../../DB/models/publishment.model.js";
 import { superUser } from "../../../DB/models/superUser.model.js";
 
 export const addComment = async (req, res, next)=>{
-    const post= await Post.findOne({where:{id:req.params.postId}});
+    const post= await Post.findOne({where:{id:req.body.postId}});
     if(!post){return next(new Error("Post not found"))};
     const comment = await Comment.create({
         content: req.body.content,
@@ -30,7 +30,7 @@ export const myAllComments = async (req, res, next)=>{
 
 export const postAllComments = async (req, res, next)=>{
     const comments = await Comment.findAll({
-        where:{postId:req.params.postId},
+        where:{postId:req.body.postId},
         attributes:["createdAt","content"],
         include: [
             {model: superUser, attributes:["userName"]},
@@ -40,33 +40,33 @@ export const postAllComments = async (req, res, next)=>{
 };
 
 export const deleteComment= async(req, res, next)=>{
-    const comment= await Comment.findOne({where:{id:req.params.id}});
+    const comment= await Comment.findOne({where:{id:req.body.id}});
     if(!comment) {return next(new Error("Comment not found"))};
     if(req.user.id !== comment.superuserId){return next(new Error("Not Authourized"))};
-    await comment.destroy({where:{id:req.params.id}});
+    await comment.destroy({where:{id:req.body.id}});
     return res.json({success: true, message:"Comment Deleted successfuly"});
 };
 
 export const deleteOthersComments= async (req, res, next)=>{
-    const post = await Post.findOne({where:{id: req.params.postId}});
+    const post = await Post.findOne({where:{id: req.body.postId}});
     if(!post){return next(new Error("Post not found"))};
     if(post.superuserId!== req.user.id){return next(new Error("Not Authorized"))};
-    const comment= await Comment.findOne({where:{postId: req.params.postId, id:req.params.commentId}});
+    const comment= await Comment.findOne({where:{postId: req.body.postId, id:req.body.commentId}});
     if(!comment){return next(new Error("Not Found"))};
-    await Comment.destroy({where:{id: req.params.commentId}});
+    await Comment.destroy({where:{id: comment.id}});
     return res.json({success:true, message:"Comment Deleted Successfully"});
 };
 
 export const deleteAllPostComments= async (req, res, next)=>{
-    const post = await Post.findOne({where:{id: req.params.postId}});
+    const post = await Post.findOne({where:{id: req.body.postId}});
     if(!post){return next(new Error("Post not found"))};
     if(post.superuserId!== req.user.id){return next(new Error("Not Authorized"))};
-    await Comment.destroy({where:{postId: req.params.postId}});
+    await Comment.destroy({where:{postId: post.id}});
     return res.json({success:true, message:"Comments Deleted Successfully"});
 };
 
 export const postCommentsCount =async (req, res, next)=>{
-    const comment = await Comment.findAll({where:{postId:req.params.postId}});
+    const comment = await Comment.findAll({where:{postId:req.body.postId}});
     const commentsCount = comment.length;
     return res.json({success:true, commentsCount})
 };

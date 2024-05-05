@@ -8,8 +8,8 @@ import { addCommentSchema, deleteAllPostCommentsSchema, deleteCommentSchema, del
 const router = Router({mergeParams:true});
 
 router.post("/addComment",isAuthenticated,isValid(addCommentSchema) ,asyncHandler(addComment));
-router.delete("/deleteComment/:id",isAuthenticated,isValid(deleteCommentSchema) ,asyncHandler(deleteComment));
-router.delete("/deleteOthersComments/:commentId",isAuthenticated,isValid(deleteOthersCommentsSchema) , asyncHandler(deleteOthersComments))
+router.delete("/deleteComment",isAuthenticated,isValid(deleteCommentSchema) ,asyncHandler(deleteComment));
+router.delete("/deleteOthersComments",isAuthenticated,isValid(deleteOthersCommentsSchema) , asyncHandler(deleteOthersComments))
 router.get("/myAllComments", isAuthenticated,isValid(myAllCommentsSchema) , asyncHandler(myAllComments));
 router.get("/allComments", isAuthenticated,isValid(postAllCommentsSchema) , asyncHandler(postAllComments));
 router.delete("/deleteAllPostComments", isAuthenticated,isValid(deleteAllPostCommentsSchema) , asyncHandler(deleteAllPostComments));
