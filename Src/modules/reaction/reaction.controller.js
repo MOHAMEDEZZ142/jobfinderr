@@ -37,10 +37,10 @@ export const showMyAllReactdPost = async (req, res, next)=>{
 };
 
 export const unReactPost = async (req, res, next)=>{
-    const post= await Reaction.findOne({where:{postId: req.body.id, superuserId:req.user.id}});
-    if(!post){return next(new Error("Post not found"))}
-    if(req.user.id !== post.superuserId){return res.json({success: false, message: "Not Authorized"})};
-    await post.destroy();
+    const react= await Reaction.findOne({where:{postId: req.body.postId, superuserId:req.user.id}});
+    if(!react){return next(new Error("Something wrong"))}
+    if(req.user.id !== react.superuserId){return res.json({success: false, message: "Not Authorized"})};
+    await react.destroy();
 };
 
 export const postReactsCount =async (req, res, next)=>{
