@@ -58,8 +58,10 @@ export const postsFeed = async (req, res, next) => {
         ],
         order: [['createdAt', 'DESC']]
     })
+    // const react = await Reaction.findAll({where:{postId:req.body.postId}});
+    // const reactsCount = react.length;
     const postsWithReactionCount = allPosts.map((post) => {
-        const reactionCount = post.Reactions.length;
+        const reactionCount = post.Reaction.length;
         return {
             ...post.toJSON(),
             reactionCount
