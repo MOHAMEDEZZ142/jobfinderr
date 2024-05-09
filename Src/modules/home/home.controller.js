@@ -54,26 +54,30 @@ export const postsFeed = async (req, res, next) => {
             {model: Comment, 
                 attributes: ["createdAt","content",],
             include:[{model: superUser, attributes: ["userName"]}],},
-            {model: Reaction }
+            {
+                model: Reaction,
+                attributes: [[sequelize.fn('COUNT', sequelize.col('Reactions.id')), 'reactionCount']] // Include the reaction count
+            }
         ],
+        group: ['Post.id'],
         order: [['createdAt', 'DESC']]
     })
     // const react = await Reaction.findAll({where:{postId:req.body.postId}});
     // const reactsCount = react.length;
-    const postsWithReactionCount = allPosts.map((post) => {
-        const reactionCount = post.Reaction.length;
-        return {
-            ...post.toJSON(),
-            reactionCount
-        };
-    });
-    return res.json({ success: true, postsWithReactionCount });
+    // const postsWithReactionCount = allPosts.map((post) => {
+    //     const reactionCount = post.Reaction.length;
+    //     return {
+    //         ...post.toJSON(),
+    //         reactionCount
+    //     };
+    // });
+    return res.json({ success: true, allPosts });
 };
-export const postReactsCount =async (req, res, next)=>{
-    const react = await Reaction.findAll({where:{postId:req.body.postId}});
-    const reactsCount = react.length;
-    return res.json({success:true, reactsCount});
-};
+// export const postReactsCount =async (req, res, next)=>{
+//     const react = await Reaction.findAll({where:{postId:req.body.postId}});
+//     const reactsCount = react.length;
+//     return res.json({success:true, reactsCount});
+// };
 // export const postsFeed = async (req, res, next) => {
 //     const {id}= req.user;
 //     const allPosts= await Post.findAll({
