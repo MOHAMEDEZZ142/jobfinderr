@@ -57,8 +57,8 @@ export const postsFeed = async (req, res, next) => {
             include:[{model: superUser, attributes: ["userName"]}],},
             {
                 model: Reaction,
-                attributes: [[sequelize.fn('COUNT', sequelize.col('id')), 'reactionCount']] // Include the reaction count
-            }
+                attributes: [[sequelize.fn("COUNT", sequelize.col("Reaction.postId")), "reactionCount"],],
+            },
         ],
         group: ['Post.id'],
         order: [['createdAt', 'DESC']]
