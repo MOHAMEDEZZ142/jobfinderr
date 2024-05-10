@@ -6,7 +6,7 @@
 //     return res.json({ success: true });
 // };
 
-import { sequelize } from "../../../DB/connection.js";
+import { Op } from "sequelize";
 import { Job } from "../../../DB/models/Job.model.js";
 import { Comment } from "../../../DB/models/comment.model.js";
 import { Company } from "../../../DB/models/company.model.js";
@@ -74,3 +74,21 @@ export const jobsFeed = async (req, res, next) => {
     return res.json({ success: true, allJobs });
 };
 
+export const search = async (req, res) => {
+    const { searchTerm } = req.body; 
+    const publishments = await Publishment.findAll({
+        where: {
+        content: {
+            [Op.like]: `%${searchTerm}%`,
+        },
+        },
+    });
+    const superusers = await superUser.findAll({
+        where: {
+        userName: {
+            [Op.like]: `%${searchTerm}%`,
+        },
+        },
+    });
+    return res.json({ publishments, superusers });
+};
