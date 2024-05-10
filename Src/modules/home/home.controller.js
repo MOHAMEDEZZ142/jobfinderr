@@ -85,9 +85,10 @@ export const search = async (req, res) => {
     });
     const superusers = await superUser.findAll({
         where: {
-        userName: {
-            [Op.like]: `%${searchTerm}%`,
-        },
+            [Op.or]: [
+                { userName: { [Op.like]: `%${searchTerm}%` } },
+                { email: { [Op.like]: `%${searchTerm}%` } },
+            ],
         },
     });
     return res.json({ publishments, superusers });

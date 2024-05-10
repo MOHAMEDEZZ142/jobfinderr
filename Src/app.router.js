@@ -29,8 +29,7 @@ export const appRouter = (app, express)=>{
     app.use("/reaction",reactionRouter);
     app.use("/follow",followRouter);
     app.use("/application",applyRouter);
-    app.use("/home",homeRouter
-);
+    app.use("/home",homeRouter);
     //CORS
     const whitelist= ["http://127.0.0.1:5500"];
     app.use((req, res, next)=>{
