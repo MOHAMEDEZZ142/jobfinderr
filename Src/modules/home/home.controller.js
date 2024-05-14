@@ -1,4 +1,4 @@
-import { Op } from "sequelize";
+import { Op, Sequelize } from "sequelize";
 import { Job } from "../../../DB/models/Job.model.js";
 import { Comment } from "../../../DB/models/comment.model.js";
 import { Company } from "../../../DB/models/company.model.js";
