@@ -31,7 +31,6 @@ export const myAllComments = async (req, res, next)=>{
 export const postAllComments = async (req, res, next)=>{
     const comments = await Comment.findAll({
         where:{postId:req.body.postId},
-        attributes:["createdAt","content"],
         include: [
             {model: superUser, attributes:["userName"]},
             ]
