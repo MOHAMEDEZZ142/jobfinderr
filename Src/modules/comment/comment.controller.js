@@ -10,7 +10,6 @@ export const addComment = async (req, res, next)=>{
         content: req.body.content,
         postId: post.id,
         superuserId: req.user.id});
-    await Notification
     return res.json({success: true, comment});
 };
 
