@@ -1,6 +1,7 @@
 import { sequelize } from "../connection.js";
 import { DataTypes, Model } from "sequelize";
 export class superUser extends Model {}
+
 superUser.init({
     userName:{
         type:DataTypes.STRING,
