@@ -17,7 +17,9 @@ export const postsFeed = async (req, res, next) => {
                 attributes: ["createdAt","content",],
             include:[{model: superUser, attributes: ["userName"]}],
         },
-            {model:Reaction}
+            {model:Reaction,
+                attributes: [[Sequelize.literal('(SELECT COUNT(*) FROM Reactions WHERE Reactions.postId = Post.id)'), 'reactionCount']]
+            }
         ],
         order: [['createdAt', 'DESC']]
     })

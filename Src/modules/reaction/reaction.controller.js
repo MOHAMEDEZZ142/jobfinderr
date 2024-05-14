@@ -14,9 +14,10 @@ export const reactPost= async (req, res, next)=>{
 export const showAllReactOnPost = async (req, res, next)=>{
     const post = await Post.findOne({where:{id: req.body.postId}});
     if(!post){return next(new Error("Post not found"))};
-    const React = await Reaction.findAll(
+    const react = await Reaction.findAll(
         {where:{postId: post.id},attributes:["createdAt","superuserId"],});
-    return res.json({success: true, React});
+    const reactionCount = react.length;
+    return res.json({success: true, react, reactionCount});
 };
 
 export const showMyAllReactdPost = async (req, res, next)=>{
