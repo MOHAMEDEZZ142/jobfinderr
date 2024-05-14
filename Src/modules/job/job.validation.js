@@ -1,7 +1,11 @@
 import joi from "joi";
 
 export const addJobSchema= joi.object({
-    content: joi.string().required(),
+    jobTiltle: joi.string().required(),
+    level: joi.string().required(),
+    requirments: joi.string().required(),
+    responsability: joi.string().required(),
+    yOfExperience: joi.string().required(),
 }).required();
 export const deleteJobSchema= joi.object({
     id: joi.required(),
