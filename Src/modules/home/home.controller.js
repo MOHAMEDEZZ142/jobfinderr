@@ -1,4 +1,4 @@
-import { Op, Sequelize } from "sequelize";
+import { Op } from "sequelize";
 import { Job } from "../../../DB/models/Job.model.js";
 import { Comment } from "../../../DB/models/comment.model.js";
 import { Company } from "../../../DB/models/company.model.js";
@@ -6,6 +6,7 @@ import { Post } from "../../../DB/models/post.model.js";
 import { Publishment } from "../../../DB/models/publishment.model.js";
 import { Reaction } from "../../../DB/models/reaction.model.js";
 import { superUser } from "../../../DB/models/superUser.model.js";
+import { sequelize } from "../../../DB/connection.js";
 
 export const postsFeed = async (req, res, next) => {
     const {id}= req.user;
@@ -17,7 +18,7 @@ export const postsFeed = async (req, res, next) => {
             include:[{model: superUser,}],
         },
             {model:Reaction,
-                attributes: [[Sequelize.literal('(SELECT COUNT(*) FROM Reaction WHERE Reaction.postId = Post.id)'), 'reactionCount']]
+                attributes: [[sequelize.literal('(SELECT COUNT(*) FROM Reaction WHERE Reaction.postId = Post.id)'), 'reactionCount']]
             }
         ],
         order: [['createdAt', 'DESC']]
