@@ -39,19 +39,27 @@ export const jobsFeed = async (req, res, next) => {
 
 export const search = async (req, res) => {
     const { searchTerm } = req.body; 
-    const publishments = await Publishment.findAll({
-        where: {
-        content: {
-            [Op.like]: `%${searchTerm}%`,
-        },
-        },
-    });
     const superusers = await superUser.findAll({
         where: {
             [Op.or]: [
                 { userName: { [Op.like]: `%${searchTerm}%` } },
                 { email: { [Op.like]: `%${searchTerm}%` } },
             ],
+        },
+    });
+    const posts = await Post.findAll({
+        include:[{model:Publishment,
+            where:{
+            content: {
+                [Op.like]: `%${searchTerm}%`,
+            },
+        }}] ,
+    });
+    const publishments = await Publishment.findAll({
+        where: {
+        content: {
+            [Op.like]: `%${searchTerm}%`,
+        },
         },
     });
     return res.json({ publishments, superusers });
