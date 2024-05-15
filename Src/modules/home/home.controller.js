@@ -1,4 +1,4 @@
-import { Op, Sequelize } from "sequelize";
+import { Op } from "sequelize";
 import { Job } from "../../../DB/models/Job.model.js";
 import { Comment } from "../../../DB/models/comment.model.js";
 import { Company } from "../../../DB/models/company.model.js";
@@ -16,10 +16,7 @@ export const postsFeed = async (req, res, next) => {
             {model: Comment, 
             include:[{model: superUser,}],
         },
-            {model:Reaction,
-                include:[{model:Post}],
-                attributes: [[Sequelize.literal('(SELECT COUNT(*) FROM reactions WHERE reactions.postId = allPosts.id)'), 'reactionCount']]
-            }
+            {model:Reaction}
         ],
         order: [['createdAt', 'DESC']]
     })
@@ -59,9 +56,7 @@ export const search = async (req, res) => {
         {model: superUser, attributes:["userName"]},
         {model: Comment, 
         include:[{model: superUser,}],},
-        {model:Reaction,
-            // attributes: [[Sequelize.literal('(SELECT COUNT(*) FROM Reactions WHERE Reactions.postId = Post.id)'), 'reactionCount']]
-        }],
+        {model:Reaction}],
         order: [['createdAt', 'DESC']]
     });
     const jobs = await Job.findAll({
