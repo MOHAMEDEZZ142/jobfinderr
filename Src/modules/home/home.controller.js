@@ -17,7 +17,7 @@ export const postsFeed = async (req, res, next) => {
             include:[{model: superUser,}],
         },
             {model:Reaction,
-                // attributes: [[Sequelize.literal('(SELECT COUNT(*) FROM Reactions WHERE Reactions.postId = Post.id)'), 'reactionCount']]
+                attributes: [[Sequelize.literal('(SELECT COUNT(*) FROM Reactions WHERE Reactions.postId = Post.id)'), 'reactionCount']]
             }
         ],
         order: [['createdAt', 'DESC']]
@@ -49,7 +49,7 @@ export const search = async (req, res) => {
     });
     const posts = await Post.findAll({
         include:[
-            {model:Publishment,
+        {model:Publishment,
                 where:{
                 content: {
                     [Op.like]: `%${searchTerm}%`,
