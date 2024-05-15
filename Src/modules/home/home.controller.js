@@ -6,7 +6,7 @@ import { Post } from "../../../DB/models/post.model.js";
 import { Publishment } from "../../../DB/models/publishment.model.js";
 import { Reaction } from "../../../DB/models/reaction.model.js";
 import { superUser } from "../../../DB/models/superUser.model.js";
-import { sequelize } from "../../../DB/connection.js";
+// import { sequelize } from "../../../DB/connection.js";
 
 export const postsFeed = async (req, res, next) => {
     const {id}= req.user;
