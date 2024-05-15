@@ -62,5 +62,5 @@ export const search = async (req, res) => {
         },
         },
     });
-    return res.json({ publishments, superusers });
+    return res.json({ posts, superusers });
 };
