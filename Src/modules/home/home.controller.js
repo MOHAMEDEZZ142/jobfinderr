@@ -48,19 +48,32 @@ export const search = async (req, res) => {
         },
     });
     const posts = await Post.findAll({
-        include:[{model:Publishment,
-            where:{
-            content: {
-                [Op.like]: `%${searchTerm}%`,
-            },
-        }}] ,
+        include:[
+            {model:Publishment,
+                where:{
+                content: {
+                    [Op.like]: `%${searchTerm}%`,
+                },
+        }},
+        {model: superUser, attributes:["userName"]},
+        {model: Comment, 
+        include:[{model: superUser,}],},
+        {model:Reaction,
+            // attributes: [[Sequelize.literal('(SELECT COUNT(*) FROM Reactions WHERE Reactions.postId = Post.id)'), 'reactionCount']]
+        }],
+        order: [['createdAt', 'DESC']]
     });
-    const publishments = await Publishment.findAll({
-        where: {
-        content: {
-            [Op.like]: `%${searchTerm}%`,
-        },
-        },
+    const jobs = await Job.findAll({
+        include:[
+            {model:Publishment,
+                where:{
+                content: {
+                    [Op.like]: `%${searchTerm}%`,
+                },
+        }},
+        {model: Company, attributes:["superuserId"] , include:[{model:superUser, attributes:["userName"] }]},
+        ],
+        order: [['createdAt', 'DESC']]
     });
-    return res.json({ posts, superusers });
+    return res.json({superusers ,posts, jobs });
 };
