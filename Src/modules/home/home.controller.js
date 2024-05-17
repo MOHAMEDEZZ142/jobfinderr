@@ -11,7 +11,7 @@ export const postsFeed = async (req, res, next) => {
     const {id}= req.user;
     const allPosts= await Post.findAll({
         include: [
-            {model: superUser, attributes:["userName"]},
+            {model: superUser},
             {model: Publishment, attributes:["content"]},
             {model: Comment, 
             include:[{model: superUser,}],
