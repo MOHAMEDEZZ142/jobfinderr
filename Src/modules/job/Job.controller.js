@@ -14,6 +14,14 @@ export const addJob = async (req, res, next)=>{
         "requirments"+" "+requirments+" "+"responsability"+" "+responsability+" "+
         "yOfExperience"+" "+yOfExperience}},
         { include: [{model:Publishment}] });
+    const company= await Company.findOne({where:{id:req.user.id}})
+    const user= await superUser.findOne({where:{id:company.superuserId}});
+    const receiverIds= await Following.findAll({
+        where:{followedId:user.id}
+    });
+    const receiverIdArray = receiverIds.map(item => item.followerId);
+    notify({type:"shareJob", senderId:user.id, to: receiverIdArray, jobId:job.id, 
+        content:`${req.user.userName} just share a job`})
     return res.json({success: true, job});
 };
 
