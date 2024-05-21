@@ -12,17 +12,11 @@ export const myNotification= async(req, res, next)=>{
             {
             model: superUser,
             as: "sender",
-            through: {
-                attributes: [],
-            },
             attributes: ["id", "userName"],
             },
             {
             model: superUser,
             as: "receiver",
-            through: {
-                attributes: [],
-            },
             attributes: ["id", "userName"],
             },
             {model: Post},
