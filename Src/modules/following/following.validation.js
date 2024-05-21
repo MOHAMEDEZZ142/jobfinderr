@@ -4,7 +4,7 @@ export const followSchema= joi.object({
     followedId: joi.required(),
 }).required();
 export const unFollowSchema= joi.object({
-    id: joi.required(),
+    followedId: joi.required(),
 }).required();
 export const removeFollowSchema= joi.object({
     id: joi.required(),
