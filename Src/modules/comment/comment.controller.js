@@ -2,6 +2,7 @@ import { Comment } from "../../../DB/models/comment.model.js";
 import { Post } from "../../../DB/models/post.model.js";
 import { Publishment } from "../../../DB/models/publishment.model.js";
 import { superUser } from "../../../DB/models/superUser.model.js";
+import { notify } from "../../utels/notify.js";
 
 export const addComment = async (req, res, next)=>{
     const post= await Post.findOne({where:{id:req.body.postId}});

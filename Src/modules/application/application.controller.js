@@ -3,6 +3,7 @@ import { Applications } from "../../../DB/models/applications.model.js";
 import { Publishment } from "../../../DB/models/publishment.model.js";
 import { Seeker } from "../../../DB/models/seeker.model.js";
 import { superUser } from "../../../DB/models/superUser.model.js";
+import { notify } from "../../utels/notify.js";
 
 export const createApplication= async (req, res, next)=>{
     const{jobId} = req.body ;

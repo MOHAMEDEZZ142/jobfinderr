@@ -3,6 +3,7 @@ import { Post } from "../../../DB/models/post.model.js";
 import { Publishment } from "../../../DB/models/publishment.model.js";
 import { Reaction } from "../../../DB/models/reaction.model.js";
 import { superUser } from "../../../DB/models/superUser.model.js";
+import { notify } from "../../utels/notify.js";
 
 export const reactPost= async (req, res, next)=>{
     const post = await Post.findOne({where:{id: req.body.postId}});

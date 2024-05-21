@@ -1,6 +1,7 @@
 import { Op } from "sequelize";
 import { Following } from "../../../DB/models/following.model.js"
 import { superUser } from "../../../DB/models/superUser.model.js";
+import { notify } from "../../utels/notify.js";
 
 export const follow= async (req, res, next)=>{
     const{followedId}= req.body;
