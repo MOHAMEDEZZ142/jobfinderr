@@ -1,4 +1,4 @@
-import { Notification } from "../../DB/models/notification.model";
+import { Notification } from "../../DB/models/notification.model.js";
 
 export const notify = async ({ type,senderId ,to, postId, jobId, commentId,content }) => {
     if (type === "follow") {
