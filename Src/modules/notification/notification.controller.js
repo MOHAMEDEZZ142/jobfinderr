@@ -12,12 +12,6 @@ export const myNotification= async(req, res, next)=>{
             {
             model: superUser,
             as: "sender",
-            attributes: ["id", "userName"],
-            },
-            {
-            model: superUser,
-            as: "receiver",
-            attributes: ["id", "userName"],
             },
             {model: Post},
             {model: Job},
