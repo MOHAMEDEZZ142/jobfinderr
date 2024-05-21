@@ -27,7 +27,7 @@ export const jobsFeed = async (req, res, next) => {
     const {id}= req.user;
     const allJobs= await Job.findAll({
         include: [
-            {model: Company, attributes:["superuserId"] , include:[{model:superUser, attributes:["userName"] }]},
+            {model: Company, attributes:["superuserId"] , include:[{model:superUser}]},
             {model: Publishment, attributes:["content"]},
         ],
         order: [['createdAt', 'DESC']]
