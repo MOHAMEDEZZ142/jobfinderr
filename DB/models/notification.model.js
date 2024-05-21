@@ -17,9 +17,6 @@ Notification.init({
 superUser.belongsToMany(superUser,{through:Notification, as:"sender", foreignKey:"senderId"});
 superUser.belongsToMany(superUser,{through:Notification, as:"receiver", foreignKey:"receiverId"});
 
-superUser.hasMany(Notification);
-Notification.belongsTo(superUser);
-
 Seeker.hasMany(Notification);
 Notification.belongsTo(Seeker);
 
