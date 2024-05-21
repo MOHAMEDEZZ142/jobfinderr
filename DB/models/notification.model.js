@@ -7,6 +7,7 @@ import { Applications } from "./applications.model.js";
 import { Comment } from "./comment.model.js";
 import { Seeker } from "./seeker.model.js";
 import { Company } from "./company.model.js";
+import { Reaction } from "./reaction.model.js";
 export class Notification extends Model {}
 Notification.init({
     content:{
@@ -40,3 +41,6 @@ Notification.belongsTo(Applications);
 
 Comment.hasMany(Notification);
 Notification.belongsTo(Comment);
+
+Reaction.hasMany(Notification);
+Notification.belongsTo(Reaction);
