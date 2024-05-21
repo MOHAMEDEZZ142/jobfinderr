@@ -3,6 +3,7 @@ import { Job } from "../../../DB/models/Job.model.js";
 import { Company } from "../../../DB/models/company.model.js";
 import { Publishment } from "../../../DB/models/publishment.model.js";
 import { superUser } from "../../../DB/models/superUser.model.js";
+import { Following } from "../../../DB/models/following.model.js";
 
 export const addJob = async (req, res, next)=>{
     const {id} = req.user;
@@ -12,7 +13,7 @@ export const addJob = async (req, res, next)=>{
         publishment: {content:"jobTiltle"+" "+jobTiltle+" "+"level"+" "+level+" "+
         "requirments"+" "+requirments+" "+"responsability"+" "+responsability+" "+
         "yOfExperience"+" "+yOfExperience}},
-        { include: [Publishment] });
+        { include: [{model:Publishment}] });
     return res.json({success: true, job});
 };
 

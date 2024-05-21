@@ -1,35 +1,85 @@
-// // export const notify= ({type})=>{
-// //     if(type==="follow"){
-// //         return
-// //     }
-// //     else if(type==="follow"){}
-// //     else if(type==="unfollow"){}
-// //     else if(type==="removeFollower"){}
-// //     else if(type==="sharePost"){}
-// //     else if(type==="shareJob"){}
-// //     else if(type==="react"){}
-// //     else if(type==="comment"){}
-// //     else if(type==="application"){}
-// // }
-// import admin from "firebase-admin";
-// import serviceAccount from "../../jobfinder-f4d98-firebase-adminsdk-fx94o-53cf747437.json";
+import { Notification } from "../../DB/models/notification.model";
 
-// admin.initializeApp({
-//     credential: admin.credential.cert(serviceAccount),
-// });
-
-// const message = {
-//     notification: {
-//     title: 'New Message',
-//     body: 'You have a new message from a user.',
-//     },
-//     token: 'DEVICE_TOKEN',
-// };
-
-// admin.messaging().send(message)
-//     .then((response) => {
-//     console.log('Successfully sent message:', response);
-//     })
-//     .catch((error) => {
-//     console.log('Error sending message:', error);
-//     });
+export const notify = async ({ type,senderId ,to, postId, jobId, commentId,content }) => {
+    if (type === "follow") {
+    return await Notification.create({
+        senderId,
+        receiverId:to,
+        postId:postId || null,
+        jobId: jobId || null,
+        commentId: commentId || null,
+        content
+    });
+    } else if (type === "unfollow") {
+        return await Notification.create({
+            senderId,
+            receiverId:to,
+            postId:postId || null,
+            jobId: jobId || null,
+            commentId: commentId || null,
+            content
+        });
+    } else if (type === "removeFollower") {
+        return await Notification.create({
+            senderId,
+            receiverId:to,
+            postId:postId || null,
+            jobId: jobId || null,
+            commentId: commentId || null,
+            content
+        });
+    } else if (type === "react") {
+        return await Notification.create({
+            senderId,
+            receiverId:to,
+            postId:postId || null,
+            jobId: jobId || null,
+            commentId: commentId || null,
+            content
+        });
+    } else if (type === "comment") {
+        return await Notification.create({
+            senderId,
+            receiverId:to,
+            postId:postId || null,
+            jobId: jobId || null,
+            commentId: commentId || null,
+            content
+        });
+    } else if (type === "application" ) {
+        return await Notification.create({
+            senderId,
+            receiverId:to,
+            postId:postId || null,
+            jobId: jobId || null,
+            commentId: commentId || null,
+            content
+        });
+    } else if (type === "sharePost") {
+    await Promise.all(
+    to.map((receiverId) => {
+        return Notification.create({
+            senderId,
+            receiverId,
+            postId:postId || null,
+            jobId: jobId || null,
+            commentId: commentId || null,
+            content
+        });
+    })
+    );
+    } else if (type === "shareJob") {
+    await Promise.all(
+    to.map((receiverId) => {
+        return Notification.create({
+            senderId,
+            receiverId,
+            postId:postId || null,
+            jobId: jobId || null,
+            commentId: commentId || null,
+            content
+        });
+    })
+    );
+    }
+};

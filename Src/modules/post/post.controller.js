@@ -1,5 +1,6 @@
 import { sequelize } from "../../../DB/connection.js";
 import { Comment } from "../../../DB/models/comment.model.js";
+import { Following } from "../../../DB/models/following.model.js";
 import { Post } from "../../../DB/models/post.model.js";
 import { Publishment } from "../../../DB/models/publishment.model.js";
 import { superUser } from "../../../DB/models/superUser.model.js";
@@ -9,6 +10,12 @@ export const addPost = async (req, res, next)=>{
     const post = await Post.create(
         {superuserId:id, 
         publishment: { content:req.body.content }},{ include: [Publishment, superUser] });
+        const receiverIds= await Following.findAll({
+            where:{followedId:req.user.id}
+        });
+        const receiverIdArray = receiverIds.map(item => item.followerId);
+        notify({type:"sharePost", senderId:req.user.id, to: receiverIdArray, postId:post.id, 
+            content:`${req.user.userName} just share a post`})
     return res.json({success: true, post});
 };
 

@@ -1,6 +1,5 @@
 import { Job } from "../../../DB/models/Job.model.js";
 import { Applications } from "../../../DB/models/applications.model.js";
-import { Company } from "../../../DB/models/company.model.js";
 import { Publishment } from "../../../DB/models/publishment.model.js";
 import { Seeker } from "../../../DB/models/seeker.model.js";
 import { superUser } from "../../../DB/models/superUser.model.js";
@@ -14,6 +13,8 @@ export const createApplication= async (req, res, next)=>{
     const isApplied= await Applications.findOne({where:{jobId, seekerId:req.user.id}});
     if(isApplied){return next(new Error("Alredy Applied"))};
     const application= await Applications.create({jobId, seekerId:req.user.id});
+    notify({type:"application", senderId:req.user.id, to: job.companyId, jobId:job.id,
+        content:`${req.user.userName} just applied for your job`})
     return res.json({success: true, message: "Applied successfully", application});
 };
 

@@ -8,6 +8,8 @@ export const reactPost= async (req, res, next)=>{
     const post = await Post.findOne({where:{id: req.body.postId}});
     if(!post){return next(new Error("Post not found"))};
     const react = await Reaction.create({postId:post.id, superuserId: req.user.id});
+    notify({type:"react", senderId:req.user.id, to: post.superuserId, postId:post.id, 
+        content:`${req.user.userName} just reacted on your post`})
     return res.json({success: true, react});
 };
 
