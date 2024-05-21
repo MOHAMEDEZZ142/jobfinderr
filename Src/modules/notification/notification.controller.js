@@ -9,7 +9,7 @@ export const myNotification= async(req, res, next)=>{
     const notification= await Notification.findAll({
         where:{receiverId:req.user.id},
         include:[
-            {model: superUser},
+            {model: superUser, as: "sender",},
             {model: Post},
             {model: Job},
             {model: Reaction},
