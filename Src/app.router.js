@@ -14,6 +14,8 @@ import reactionRouter from "./modules/reaction/reaction.router.js";
 import followRouter from "./modules/following/following.router.js";
 import applyRouter from "./modules/application/application.router.js";
 import homeRouter from "./modules/home/home.router.js";
+import notificationRouter from "./modules/notification/notification.router.js";
+
 export const appRouter = (app, express)=>{
     app.use(express.json());
     app.use("/user", userRouter);
@@ -30,6 +32,7 @@ export const appRouter = (app, express)=>{
     app.use("/follow",followRouter);
     app.use("/application",applyRouter);
     app.use("/home",homeRouter);
+    app.use("/notification",notificationRouter);
     //CORS
     const whitelist= ["http://127.0.0.1:5500"];
     app.use((req, res, next)=>{
