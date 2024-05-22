@@ -29,7 +29,6 @@ export const myNotification= async(req, res, next)=>{
                 {model: Company, include:[{model:superUser}]},
                 {model: Publishment, attributes:["content"]},
             ],},
-            {model: Reaction},
             {model: Comment},
         ]
     })
