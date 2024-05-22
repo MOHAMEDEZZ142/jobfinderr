@@ -7,15 +7,16 @@ import { notify } from "../../utels/notify.js";
 
 export const createApplication= async (req, res, next)=>{
     const{jobId} = req.body ;
-    const seeker= await superUser.findOne({where:{id: req.user.id}});
+    const seeker= await Seeker.findOne({where:{id: req.user.id}});
     if(!seeker){return next(new Error("user not found"))};
     const job= await Job.findOne({where:{id:jobId}});
     if(!job){return next(new Error("Job not found"))};
     const isApplied= await Applications.findOne({where:{jobId, seekerId:req.user.id}});
     if(isApplied){return next(new Error("Alredy Applied"))};
+    const user= await superUser.findOne({where:{id: req.user.id}});
     const application= await Applications.create({jobId, seekerId:req.user.id});
     notify({type:"application", senderId:req.user.id, to: job.companyId, jobId:job.id,
-        content:`${req.user.userName} just applied for your job`})
+        content:`${user.userName} just applied for your job`})
     return res.json({success: true, message: "Applied successfully", application});
 };
 
