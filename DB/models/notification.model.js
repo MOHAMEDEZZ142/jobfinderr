@@ -36,11 +36,5 @@ Notification.belongsTo(Post);
 Job.hasMany(Notification);
 Notification.belongsTo(Job);
 
-Applications.hasMany(Notification,{foreignKey:"receiverId"});
-Notification.belongsTo(Applications);
-
 Comment.hasMany(Notification);
 Notification.belongsTo(Comment);
-
-Reaction.hasMany(Notification,{foreignKey:"receiverId"});
-Notification.belongsTo(Reaction);
