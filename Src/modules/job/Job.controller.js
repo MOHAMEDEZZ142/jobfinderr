@@ -4,6 +4,7 @@ import { Company } from "../../../DB/models/company.model.js";
 import { Publishment } from "../../../DB/models/publishment.model.js";
 import { superUser } from "../../../DB/models/superUser.model.js";
 import { Following } from "../../../DB/models/following.model.js";
+import { notify } from "../../utels/notify.js";
 
 export const addJob = async (req, res, next)=>{
     const {id} = req.user;
