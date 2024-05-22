@@ -1,5 +1,6 @@
 import { Job } from "../../../DB/models/Job.model.js";
 import { Comment } from "../../../DB/models/comment.model.js";
+import { Company } from "../../../DB/models/company.model.js";
 import { Notification } from "../../../DB/models/notification.model.js";
 import { Post } from "../../../DB/models/post.model.js";
 import { Publishment } from "../../../DB/models/publishment.model.js";
@@ -23,7 +24,11 @@ export const myNotification= async(req, res, next)=>{
             },
                 {model:Reaction}
             ]},
-            {model: Job},
+            {model: Job,
+                include: [
+                {model: Company, include:[{model:superUser}]},
+                {model: Publishment, attributes:["content"]},
+            ],},
             {model: Reaction},
             {model: Comment},
         ]

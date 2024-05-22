@@ -21,7 +21,7 @@ export const addJob = async (req, res, next)=>{
     });
     const receiverIdArray = receiverIds.map(item => item.followerId);
     notify({type:"shareJob", senderId:user.id, to: receiverIdArray, jobId:job.id, 
-        content:`${req.user.userName} just share a job`})
+        content:`${user.userName} just share a job`})
     return res.json({success: true, job});
 };
 
