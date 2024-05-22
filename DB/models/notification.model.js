@@ -15,9 +15,6 @@ Notification.init({
         allowNull: false}
 },{sequelize, modelName:"notification", timestamps:true});
 
-// superUser.belongsToMany(superUser,{through:Notification, as:"sender", foreignKey:"senderId"});
-// superUser.belongsToMany(superUser,{through:Notification, as:"receiver", foreignKey:"receiverId"});
-
 superUser.hasMany(Notification,{foreignKey:"senderId"});
 Notification.belongsTo(superUser,{as:"sender", foreignKey:"senderId"});
 
