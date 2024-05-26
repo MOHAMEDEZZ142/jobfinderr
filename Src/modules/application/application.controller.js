@@ -14,8 +14,9 @@ export const createApplication= async (req, res, next)=>{
     const isApplied= await Applications.findOne({where:{jobId, seekerId:req.user.id}});
     if(isApplied){return next(new Error("Alredy Applied"))};
     const user= await superUser.findOne({where:{id: seeker.id}});
+    const compUser= await superUser.findOne({where:{id:job.companyId}})
     const application= await Applications.create({jobId, seekerId:req.user.id});
-    notify({type:"application", senderId:user.id, to: job.companyId, jobId:job.id,
+    notify({type:"application", senderId:user.id, to: compUser.id, jobId:job.id,
         content:`${user.userName} just applied for your job`})
     return res.json({success: true, message: "Applied successfully", application});
 };
