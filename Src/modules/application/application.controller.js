@@ -18,7 +18,7 @@ export const createApplication= async (req, res, next)=>{
     const company= await Company.findOne({where:{id:job.companyId}})
     const compUser= await superUser.findOne({where:{id:company.superuserId}})
     const application= await Applications.create({jobId, seekerId:req.user.id});
-    notify({type:"application", senderId:user.id, to: compUser.id,seekerId: seeker.id, jobId:job.id,
+    notify({type:"application", senderId:user.id, to: compUser.id, seekerId: seeker.id, jobId:job.id,
         content:`${user.userName} just applied for your job`})
     return res.json({success: true, message: "Applied successfully", application});
 };

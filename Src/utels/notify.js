@@ -1,10 +1,12 @@
 import { Notification } from "../../DB/models/notification.model.js";
 
-export const notify = async ({ type,senderId ,to, postId, jobId, commentId,content }) => {
+export const notify = async ({ type,senderId ,to,seekerId ,companyId,postId, jobId, commentId,content }) => {
     if (type === "follow") {
     return await Notification.create({
         senderId,
         receiverId:to,
+        seekerId: seekerId || null,
+        companyId: companyId || null,
         postId:postId || null,
         jobId: jobId || null,
         commentId: commentId || null,
@@ -14,6 +16,8 @@ export const notify = async ({ type,senderId ,to, postId, jobId, commentId,conte
         return await Notification.create({
             senderId,
             receiverId:to,
+            seekerId: seekerId || null,
+            companyId: companyId || null,
             postId:postId || null,
             jobId: jobId || null,
             commentId: commentId || null,
@@ -23,6 +27,8 @@ export const notify = async ({ type,senderId ,to, postId, jobId, commentId,conte
         return await Notification.create({
             senderId,
             receiverId:to,
+            seekerId: seekerId || null,
+            companyId: companyId || null,
             postId:postId || null,
             jobId: jobId || null,
             commentId: commentId || null,
@@ -32,6 +38,8 @@ export const notify = async ({ type,senderId ,to, postId, jobId, commentId,conte
         return await Notification.create({
             senderId,
             receiverId:to,
+            seekerId: seekerId || null,
+            companyId: companyId || null,
             postId:postId || null,
             jobId: jobId || null,
             commentId: commentId || null,
@@ -41,6 +49,8 @@ export const notify = async ({ type,senderId ,to, postId, jobId, commentId,conte
         return await Notification.create({
             senderId,
             receiverId:to,
+            seekerId: seekerId || null,
+            companyId: companyId || null,
             postId:postId || null,
             jobId: jobId || null,
             commentId: commentId || null,
@@ -50,6 +60,8 @@ export const notify = async ({ type,senderId ,to, postId, jobId, commentId,conte
         return await Notification.create({
             senderId,
             receiverId:to,
+            seekerId: seekerId || null,
+            companyId: companyId || null,
             postId:postId || null,
             jobId: jobId || null,
             commentId: commentId || null,
@@ -61,6 +73,8 @@ export const notify = async ({ type,senderId ,to, postId, jobId, commentId,conte
         return Notification.create({
             senderId,
             receiverId,
+            seekerId: seekerId || null,
+            companyId: companyId || null,
             postId:postId || null,
             jobId: jobId || null,
             commentId: commentId || null,
@@ -74,6 +88,8 @@ export const notify = async ({ type,senderId ,to, postId, jobId, commentId,conte
         return Notification.create({
             senderId,
             receiverId,
+            seekerId: seekerId || null,
+            companyId: companyId || null,
             postId:postId || null,
             jobId: jobId || null,
             commentId: commentId || null,
