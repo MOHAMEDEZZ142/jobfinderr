@@ -1,5 +1,6 @@
 import { Job } from "../../../DB/models/Job.model.js";
 import { Applications } from "../../../DB/models/applications.model.js";
+import { Company } from "../../../DB/models/company.model.js";
 import { Publishment } from "../../../DB/models/publishment.model.js";
 import { Seeker } from "../../../DB/models/seeker.model.js";
 import { superUser } from "../../../DB/models/superUser.model.js";
@@ -13,8 +14,9 @@ export const createApplication= async (req, res, next)=>{
     if(!job){return next(new Error("Job not found"))};
     const isApplied= await Applications.findOne({where:{jobId, seekerId:req.user.id}});
     if(isApplied){return next(new Error("Alredy Applied"))};
-    const user= await superUser.findOne({where:{id: seeker.id}});
-    const compUser= await superUser.findOne({where:{id:job.companyId}})
+    const user= await superUser.findOne({where:{id: seeker.superuserId}});
+    const company= await Company.findOne({where:{id:job.companyId}})
+    const compUser= await superUser.findOne({where:{id:company.superuserId}})
     const application= await Applications.create({jobId, seekerId:req.user.id});
     notify({type:"application", senderId:user.id, to: compUser.id, jobId:job.id,
         content:`${user.userName} just applied for your job`})

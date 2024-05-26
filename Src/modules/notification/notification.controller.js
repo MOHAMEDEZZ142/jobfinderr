@@ -5,7 +5,6 @@ import { Notification } from "../../../DB/models/notification.model.js";
 import { Post } from "../../../DB/models/post.model.js";
 import { Publishment } from "../../../DB/models/publishment.model.js";
 import { Reaction } from "../../../DB/models/reaction.model.js";
-import { Seeker } from "../../../DB/models/seeker.model.js";
 import { superUser } from "../../../DB/models/superUser.model.js";
 
 export const myNotification= async(req, res, next)=>{
