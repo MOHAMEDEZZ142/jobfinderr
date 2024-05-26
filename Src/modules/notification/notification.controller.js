@@ -15,9 +15,6 @@ export const myNotification= async(req, res, next)=>{
             {
             model: superUser,
             as: "sender",
-            include:[
-                {model: Seeker},
-            ]
             },
             {model: Post, 
                 include:[
