@@ -22,7 +22,6 @@ export const myFollowers= async(req, res, next)=>{
     const followers= followed.map( obj => obj.followerId);
     const followersList= await superUser.findAll({
         where:{id:followers},
-        attributes:["userName"]
     })
     return res.json({success: true, followersList});
 };
@@ -33,7 +32,6 @@ export const myFollowing= async(req, res, next)=>{
     const following= follower.map( obj => obj.followedId);
     const followingList= await superUser.findAll({
         where:{id:following},
-        attributes:["userName"]
     })
     return res.json({success: true, followingList});
 };
