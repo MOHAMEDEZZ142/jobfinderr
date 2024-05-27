@@ -1,9 +1,5 @@
 import joi from "joi";
 
-export const othersCompanyProfileSchema= joi.object({
-    companyId: joi.string().required()
-}).required();
-
-export const othersSeekerProfileSchema= joi.object({
-    seekerId: joi.string().required()
+export const othersProfileSchema= joi.object({
+    id: joi.string().required()
 }).required();
