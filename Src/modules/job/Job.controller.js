@@ -49,18 +49,12 @@ export const deleteMyAllJobs= async(req, res, next)=>{
     return res.json({success: true, message:"Post Deleted successfuly"});
 };
 
-export const myAllJobs = async(req, res, next)=>{
+export const othersAllJobs = async(req, res, next)=>{
     const jobs= await Job.findAll({
-        where:{companyId:req.user.id},
-        attributes:[
-            [
-            moment().format('YYYY-MM-DD'),
-            'createdAt'
-            ]
-        ],
+        where:{companyId:req.body.id},
         include: [
-            {model: Company, attributes:["superuserId"] , include:[{model:superUser, attributes:["userName"] }]},
-            {model: Publishment, attributes:["content"]},
+            {model: Company , include:[{model:superUser}]},
+            {model: Publishment},
         ]
     });
 return res.json({ success: true, jobs});

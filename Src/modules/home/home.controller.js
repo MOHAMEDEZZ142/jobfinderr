@@ -6,6 +6,9 @@ import { Post } from "../../../DB/models/post.model.js";
 import { Publishment } from "../../../DB/models/publishment.model.js";
 import { Reaction } from "../../../DB/models/reaction.model.js";
 import { superUser } from "../../../DB/models/superUser.model.js";
+import { Seeker } from "../../../DB/models/seeker.model.js";
+import { Token } from "../../../DB/models/token.model.js";
+import { Following } from "../../../DB/models/following.model.js";
 
 export const postsFeed = async (req, res, next) => {
     const {id}= req.user;
@@ -35,7 +38,7 @@ export const jobsFeed = async (req, res, next) => {
     return res.json({ success: true, allJobs });
 };
 
-export const search = async (req, res) => {
+export const search = async (req, res, next) => {
     const { searchTerm } = req.body; 
     const superusers = await superUser.findAll({
         where: {

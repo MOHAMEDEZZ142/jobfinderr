@@ -36,6 +36,26 @@ export const myFollowing= async(req, res, next)=>{
     return res.json({success: true, followingList});
 };
 
+export const othersFollowers= async(req, res, next)=>{
+    const followed= await Following.findAll(
+        {where:{followedId:req.body.id}});
+    const followers= followed.map( obj => obj.followerId);
+    const followersList= await superUser.findAll({
+        where:{id:followers},
+    })
+    return res.json({success: true, followersList});
+};
+
+export const othersFollowing= async(req, res, next)=>{
+    const follower= await Following.findAll(
+        {where:{followerId:req.body.id}});
+    const following= follower.map( obj => obj.followedId);
+    const followingList= await superUser.findAll({
+        where:{id:following},
+    })
+    return res.json({success: true, followingList});
+};
+
 export const unFollow= async(req, res, next)=>{
     const unFollowing= await Following.findOne({where:{followerId:req.user.id , followedId: req.body.followedId}});
     if(!unFollowing){return next(new Error("user not found"))};

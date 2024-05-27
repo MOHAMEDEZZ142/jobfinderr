@@ -41,16 +41,14 @@ export const deleteMyAllPosts= async(req, res, next)=>{
     return res.json({success: true, message:"Post Deleted successfuly"});
 };
 
-export const myAllPosts = async(req, res, next)=>{
+export const othersAllPosts = async(req, res, next)=>{
     const posts= await Post.findAll({
-        where:{superuserId:req.user.id},
-        attributes:["createdAt"], 
+        where:{superuserId:req.body.id}, 
         include: [
-            {model: superUser, attributes:["userName"]},
-            {model: Publishment, attributes:["content"]},
+            {model: superUser},
+            {model: Publishment,},
             {model: Comment, 
-                attributes: ["createdAt","content",],
-            include:[{model: superUser, attributes: ["userName"]}],
+            include:[{model: superUser}],
         },
         ]
     });
