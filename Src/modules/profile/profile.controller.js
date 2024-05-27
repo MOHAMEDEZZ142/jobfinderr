@@ -40,5 +40,7 @@ export const othersProfile= async(req, res, next)=>{
     const follower= await Following.findAll({where:{followerId:id}});
     const following= follower.map( obj => obj.followedId);
     const userFollowingList= await superUser.findAll({where:{id:following}})
-    return res.json({ success: true, results:{userInfo, userPosts, userJobs,userFollowersList, userFollowingList} });
+    if(company){ 
+        return res.json({ success: true, results:{userInfo, userPosts, userJobs,userFollowersList, userFollowingList} });}
+    else{return res.json({ success: true, results:{userInfo, userPosts,userFollowersList, userFollowingList} });}
 };
