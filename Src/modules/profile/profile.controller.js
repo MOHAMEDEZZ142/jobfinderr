@@ -37,7 +37,7 @@ export const othersProfile= async(req, res, next)=>{
     const followers= followed.map( obj => obj.followerId);
     const userFollowersList= await superUser.findAll({where:{id:followers}})
     //following
-    const follower= await Following.findAll({where:{followerId:user.id}});
+    const follower= await Following.findAll({where:{followerId:id}});
     const following= follower.map( obj => obj.followedId);
     const userFollowingList= await superUser.findAll({where:{id:following}})
     return res.json({ success: true, results:{userInfo, userPosts,userFollowersList, userFollowingList} });
