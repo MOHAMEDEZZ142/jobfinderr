@@ -24,14 +24,14 @@ export const othersProfile= async(req, res, next)=>{
             order: [['createdAt', 'DESC']]
     });
     //jobs
-    const company= await Company.findOne({where:{superuserId:id}}) 
-    const userJobs= await Job.findAll({
-        where:{companyId:company.id},
-            include: [
-                {model: Company , include:[{model:superUser}]},
-                {model: Publishment},
-            ]
-    });
+    // const company= await Company.findOne({where:{superuserId:id}}) 
+    // const userJobs= await Job.findAll({
+    //     where:{companyId:company.id},
+    //         include: [
+    //             {model: Company , include:[{model:superUser}]},
+    //             {model: Publishment},
+    //         ]
+    // });
     //followers
     const followed= await Following.findAll({where:{followedId:id}});
     const followers= followed.map( obj => obj.followerId);
@@ -40,5 +40,5 @@ export const othersProfile= async(req, res, next)=>{
     const follower= await Following.findAll({where:{followerId:user.id}});
     const following= follower.map( obj => obj.followedId);
     const userFollowingList= await superUser.findAll({where:{id:following}})
-    return res.json({ success: true, results:{userInfo, userPosts, userJobs,userFollowersList, userFollowingList} });
+    return res.json({ success: true, results:{userInfo, userPosts,userFollowersList, userFollowingList} });
 };
