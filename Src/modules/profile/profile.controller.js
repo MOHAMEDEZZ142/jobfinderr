@@ -1,3 +1,5 @@
+import { Job } from "../../../DB/models/Job.model.js";
+import { Comment } from "../../../DB/models/comment.model.js";
 import { Company } from "../../../DB/models/company.model.js";
 import { Following } from "../../../DB/models/following.model.js";
 import { Post } from "../../../DB/models/post.model.js";
