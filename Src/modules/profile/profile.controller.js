@@ -25,13 +25,17 @@ export const othersProfile= async(req, res, next)=>{
     });
     //jobs
     const company= await Company.findOne({where:{superuserId:id}}) 
-    const userJobs= await Job.findAll({
-        where:{companyId:company.id},
-        include: [
-            {model: Company , include:[{model:superUser}]},
-            {model: Publishment},
-        ]
-    });
+    if(!company){
+        return [];    
+    } else{
+        const userJobs= await Job.findAll({
+            where:{companyId:company.id},
+            include: [
+                {model: Company , include:[{model:superUser}]},
+                {model: Publishment},
+            ]
+        });
+    }
     //followers
     const followed= await Following.findAll({where:{followedId:id}});
     const followers= followed.map( obj => obj.followerId);
