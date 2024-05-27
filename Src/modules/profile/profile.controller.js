@@ -9,6 +9,8 @@ import { superUser } from "../../../DB/models/superUser.model.js";
 
 export const othersProfile= async(req, res, next)=>{
     const {id}= req.body;
+    const company= await Company.findOne({where:{superuserId:id}}) 
+    if(company){
     //user
     const userInfo= await superUser.findOne({where:{id}})
     //posts
@@ -24,7 +26,6 @@ export const othersProfile= async(req, res, next)=>{
             order: [['createdAt', 'DESC']]
     });
     //jobs
-    const company= await Company.findOne({where:{superuserId:id}}) 
     const userJobs= await Job.findAll({
         where:{companyId:company.id},
             include: [
@@ -40,7 +41,31 @@ export const othersProfile= async(req, res, next)=>{
     const follower= await Following.findAll({where:{followerId:id}});
     const following= follower.map( obj => obj.followedId);
     const userFollowingList= await superUser.findAll({where:{id:following}})
-    if(company){ 
-        return res.json({ success: true, results:{userInfo, userPosts, userJobs,userFollowersList, userFollowingList} });}
-    else{return res.json({ success: true, results:{userInfo, userPosts,userFollowersList, userFollowingList} });}
+    return res.json({ success: true, results:{userInfo, userPosts, userJobs ,userFollowersList, userFollowingList} });
+}
+    else{
+        //user
+        const userInfo= await superUser.findOne({where:{id}})
+        //posts
+        const userPosts= await Post.findAll({
+            where:{superuserId:id}, 
+            include: [
+                {model: superUser},
+                {model: Publishment},
+                {model: Reaction},
+                {model: Comment,
+                include:[{model: superUser}],},
+                ],
+                order: [['createdAt', 'DESC']]
+        });
+        //followers
+        const followed= await Following.findAll({where:{followedId:id}});
+        const followers= followed.map( obj => obj.followerId);
+        const userFollowersList= await superUser.findAll({where:{id:followers}})
+        //following
+        const follower= await Following.findAll({where:{followerId:id}});
+        const following= follower.map( obj => obj.followedId);
+        const userFollowingList= await superUser.findAll({where:{id:following}})
+        return res.json({ success: true, results:{userInfo, userPosts,userFollowersList, userFollowingList} });
+}
 };
