@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
-export const sequelize= new Sequelize("sql7708121","sql7708121","YyVG99qHXD",{
-    host: 'sql7.freesqldatabase.com' ,
+export const sequelize= new Sequelize("sql12709941","sql12709941","FG3Yf8Dnjt",{
+    host: 'sql12.freesqldatabase.com' ,
     dialect: 'mysql'
 });
 export const connectDB= async ()=>{
@@ -9,9 +9,9 @@ export const connectDB= async ()=>{
     .catch((err)=>{console.log("Connection field", err)})
 };
 /*
-Host: sql7.freesqldatabase.com
-Database name: sql7708121
-Database user: sql7708121
-Database password: YyVG99qHXD
+Host: sql12.freesqldatabase.com
+Database name: sql12709941
+Database user: sql12709941
+Database password: FG3Yf8Dnjt
 Port number: 3306
 */
