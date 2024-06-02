@@ -18,13 +18,16 @@ export const signUp = async(req, res, next)=>{
     const activationCode= crypto.randomBytes(64).toString("hex");
     //Insert data
     const seeker = await Seeker.create({gender,birthDate, 
-        superuser:{userName:firstName+" "+lastName,password : hashedPass, email, phone, address,activationCode}},
+        superuser:{userName:firstName+" "+lastName,password : hashedPass, email, phone, 
+        address,activationCode}},
         {include: {model: superUser}});
     //activate acc link
     const link= `https://jobfinderr.onrender.com/user/confirmEmail/${activationCode}`;
     //send link by Email & cheack
     const isSent= await sendEmail({to:email, subject: "Activate Account", html: signUpTemp(link)});
-    return isSent ? res.json({success: true, message: "Please review your email!"}): next(new Error("something went wrong"));
+    return isSent ? 
+    res.json({success: true, message: "Please review your email!"}):
+    next(new Error("something went wrong"));
 };
 
 export const  uploadCV= async (req, res, next)=>{
