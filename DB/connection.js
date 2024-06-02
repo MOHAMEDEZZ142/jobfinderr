@@ -8,10 +8,3 @@ export const connectDB= async ()=>{
     .then(()=>{console.log("Database Connected")})
     .catch((err)=>{console.log("Connection field", err)})
 };
-/*
-Host: sql12.freesqldatabase.com
-Database name: sql12709941
-Database user: sql12709941
-Database password: FG3Yf8Dnjt
-Port number: 3306
-*/
