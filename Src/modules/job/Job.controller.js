@@ -1,4 +1,3 @@
-import moment from "moment";
 import { Job } from "../../../DB/models/Job.model.js";
 import { Company } from "../../../DB/models/company.model.js";
 import { Publishment } from "../../../DB/models/publishment.model.js";

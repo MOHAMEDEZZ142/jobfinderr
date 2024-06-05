@@ -7,5 +7,5 @@ import { isAuthenticatedCompany } from "../../middleware/isAuthenticatedCompany.
 const router= Router();
 router.post("/signUp",isValid(companySignUpSchema),asyncHandler(signUp));
 router.post("/addDescription",isAuthenticatedCompany,isValid(addDescriptionSchema),asyncHandler(addDescription));
-
+//company router
 export default router;
