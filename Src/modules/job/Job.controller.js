@@ -10,7 +10,7 @@ export const addJob = async (req, res, next)=>{
     const {jobTiltle, level, requirments, responsability, yOfExperience} = req.body
     const job = await Job.create(
         {companyId:id,
-        publishment: {content:`jobTitle ${jobTiltle} level ${level} requirements ${requirments} responsibility ${responsability} yearsOfExperience ${yOfExperience}`}},
+        publishment: {content:`jobTitle: ${jobTiltle}\n level: ${level}\n requirements: ${requirments}\n responsibility: ${responsability}\n yearsOfExperience: ${yOfExperience}`}},
         { include: [{model:Publishment}] });
     const company= await Company.findOne({where:{id:req.user.id}})
     const user= await superUser.findOne({where:{id:company.superuserId}});
@@ -21,7 +21,7 @@ export const addJob = async (req, res, next)=>{
     notify({type:"shareJob", senderId:user.id, to: receiverIdArray, jobId:job.id, 
         content:`${user.userName} just share a job`})
     return res.json({success: true, job: {
-        jobTitle: job.publishment.content.split(' ')[1],
+        jobTitle: job.publishment.content.split('\n')[0].split(': ')[1],
         content: job.publishment.content
     }});
 };
