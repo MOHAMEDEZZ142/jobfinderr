@@ -10,9 +10,7 @@ export const addJob = async (req, res, next)=>{
     const {jobTiltle, level, requirments, responsability, yOfExperience} = req.body
     const job = await Job.create(
         {companyId:id,
-        publishment: {content:"jobTiltle"+" "+jobTiltle+" "+"level"+" "+level+" "+
-        "requirments"+" "+requirments+" "+"responsability"+" "+responsability+" "+
-        "yOfExperience"+" "+yOfExperience}},
+        publishment: {content:`jobTitle ${jobTiltle} level ${level} requirements ${requirments} responsibility ${responsability} yearsOfExperience ${yOfExperience}`}},
         { include: [{model:Publishment}] });
     const company= await Company.findOne({where:{id:req.user.id}})
     const user= await superUser.findOne({where:{id:company.superuserId}});
