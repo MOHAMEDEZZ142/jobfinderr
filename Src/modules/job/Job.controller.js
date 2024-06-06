@@ -22,7 +22,10 @@ export const addJob = async (req, res, next)=>{
     const receiverIdArray = receiverIds.map(item => item.followerId);
     notify({type:"shareJob", senderId:user.id, to: receiverIdArray, jobId:job.id, 
         content:`${user.userName} just share a job`})
-    return res.json({success: true, job});
+    return res.json({success: true, job: {
+        jobTitle: job.publishment.content.split(' ')[1],
+        content: job.publishment.content
+    }});
 };
 
 export const deleteJob= async(req, res, next)=>{
